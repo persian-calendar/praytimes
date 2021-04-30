@@ -10,6 +10,15 @@ repositories {
     mavenCentral()
 }
 
+dependencies {
+    testImplementation("junit:junit:4.13.2")
+    testImplementation(kotlin("stdlib-jdk8"))
+}
+
+configure<JavaPluginConvention> {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+}
+
 publishing {
     repositories {
         maven {
@@ -25,23 +34,5 @@ publishing {
         register("mavenJava", MavenPublication::class) {
             from(components["java"])
         }
-    }
-}
-
-dependencies {
-    testCompile("junit", "junit", "4.12")
-    testImplementation(kotlin("stdlib-jdk8"))
-}
-
-configure<JavaPluginConvention> {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-}
-
-tasks {
-    compileKotlin {
-        kotlinOptions.jvmTarget = "1.8"
-    }
-    compileTestKotlin {
-        kotlinOptions.jvmTarget = "1.8"
     }
 }
