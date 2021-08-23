@@ -4,14 +4,9 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.util.*
 
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
-class MainLogicTests {
+class MainTests {
     @Test
-    fun test_praytimes() {
+    fun `pray times calculations correctness`() {
         // http://praytimes.org/code/v2/js/examples/monthly.htm
         var prayTimes = PrayTimesCalculator.calculate(
             CalculationMethod.MWL,
