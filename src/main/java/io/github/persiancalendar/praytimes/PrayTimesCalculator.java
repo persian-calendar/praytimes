@@ -22,7 +22,6 @@ public class PrayTimesCalculator {
     private static final double DEFAULT_ISHA = 18d / 24;
     private static final MinuteOrAngleDouble DEFAULT_TIME_IMSAK = min(10);
     private static final MinuteOrAngleDouble DEFAULT_TIME_DHUHR = min(0);
-    private static final CalculationMethod.AsrJuristics ASR_METHOD = CalculationMethod.AsrJuristics.Standard;
     private static final CalculationMethod.HighLatMethods HIGH_LATS_METHOD = CalculationMethod.HighLatMethods.NightMiddle;
 
     //
