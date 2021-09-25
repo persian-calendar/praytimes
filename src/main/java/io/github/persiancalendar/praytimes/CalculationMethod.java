@@ -68,8 +68,15 @@ public enum CalculationMethod {
 
     // Asr Juristic Methods
     public enum AsrJuristics {
-        Standard, // Shafi`i, Maliki, Ja`fari, Hanbali
-        Hanafi // Hanafi
+        Standard(1d), // Shafi`i, Maliki, Ja`fari, Hanbali
+        Hanafi(2d); // Hanafi
+
+        // asr shadow factor
+        public final double asrFactor;
+
+        AsrJuristics(double factor) {
+            asrFactor = factor;
+        }
     }
 
     // Adjust Methods for Higher Latitudes

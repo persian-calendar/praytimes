@@ -30,7 +30,7 @@ public class PrayTimesCalculator {
     //
     //
     public static PrayTimes calculate(CalculationMethod method, Date date, Coordinate coordinate,
-                                      Double timeZone, Boolean dst) {
+                                      CalculationMethod.AsrJuristics asrMethod, Double timeZone, Boolean dst) {
         double mTimeZone = timeZone != null ? timeZone : getTimeZone(date);
         boolean _dst = dst != null ? dst : getDst(date);
         if (_dst) {
@@ -48,7 +48,7 @@ public class PrayTimesCalculator {
         double fajr = sunAngleTime(jdate, method.getFajr(), DEFAULT_FAJR, true, coordinate);
         double sunrise = sunAngleTime(jdate, riseSetAngle(coordinate), DEFAULT_SUNRISE, true, coordinate);
         double dhuhr = midDay(jdate, DEFAULT_DHUHR);
-        double asr = asrTime(jdate, asrFactor(), DEFAULT_ASR, coordinate);
+        double asr = asrTime(jdate, asrMethod.asrFactor, DEFAULT_ASR, coordinate);
         double sunset = sunAngleTime(jdate, riseSetAngle(coordinate), DEFAULT_SUNSET, coordinate);
         double maghrib = sunAngleTime(jdate, method.getMaghrib(), DEFAULT_MAGHRIB, coordinate);
         double isha = sunAngleTime(jdate, method.getIsha(), DEFAULT_ISHA, coordinate);
@@ -95,8 +95,18 @@ public class PrayTimesCalculator {
         return new PrayTimes(imsak, fajr, sunrise, dhuhr, asr, sunset, maghrib, isha, midnight);
     }
 
+    public static PrayTimes calculate(CalculationMethod method, Date date, Coordinate coordinate,
+                                      Double timeZone, Boolean dst) {
+        return calculate(method, date, coordinate, CalculationMethod.AsrJuristics.Standard, timeZone, dst);
+    }
+
     public static PrayTimes calculate(CalculationMethod method, Date date, Coordinate coordinate) {
-        return calculate(method, date, coordinate, null, null);
+        return calculate(method, date, coordinate, CalculationMethod.AsrJuristics.Standard);
+    }
+
+    public static PrayTimes calculate(CalculationMethod method, Date date, Coordinate coordinate,
+                                      CalculationMethod.AsrJuristics asrMethod) {
+        return calculate(method, date, coordinate, asrMethod, null, null);
     }
 
     // compute mid-day time
@@ -164,11 +174,6 @@ public class PrayTimesCalculator {
 
     // Section 2!! (Compute Prayer Time in JS code)
     //
-
-    // get asr shadow factor
-    private static double asrFactor() {
-        return ASR_METHOD == CalculationMethod.AsrJuristics.Hanafi ? 2d : 1d;
-    }
 
     // return sun angle for sunset/sunrise
     private static MinuteOrAngleDouble riseSetAngle(Coordinate coordinate) {
