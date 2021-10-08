@@ -120,8 +120,7 @@ class MainTests {
     }
 
     private fun Double.toRoundedClock(): Clock {
-        val rounded = (this + 0.5 / 60) % 24 // add 0.5 minutes to round
-        val value = if (rounded < 0) (24 + rounded) else rounded
+        val value = (this + 0.5 / 60) % 24 // add 0.5 minutes to round
         val hours = value.toInt()
         val minutes = ((value - hours) * 60.0).toInt()
         return Clock(hours, minutes)
