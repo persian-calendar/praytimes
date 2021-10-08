@@ -15,12 +15,12 @@ class MainTests {
             CalculationMethod.AsrJuristics.Standard
         )
 
-        assertEquals(Clock(5, 9).toInt(), prayTimes.fajrClock.toInt())
-        assertEquals(Clock(6, 49).toInt(), prayTimes.sunriseClock.toInt())
-        assertEquals(Clock(13, 19).toInt(), prayTimes.dhuhrClock.toInt())
-        assertEquals(Clock(16, 57).toInt(), prayTimes.asrClock.toInt())
-        assertEquals(Clock(19, 48).toInt(), prayTimes.maghribClock.toInt())
-        assertEquals(Clock(21, 21).toInt(), prayTimes.ishaClock.toInt())
+        assertEquals(Clock(5, 9).toInt(), prayTimes.fajr.toInt())
+        assertEquals(Clock(6, 49).toInt(), prayTimes.sunrise.toInt())
+        assertEquals(Clock(13, 19).toInt(), prayTimes.dhuhr.toInt())
+        assertEquals(Clock(16, 57).toInt(), prayTimes.asr.toInt())
+        assertEquals(Clock(19, 48).toInt(), prayTimes.maghrib.toInt())
+        assertEquals(Clock(21, 21).toInt(), prayTimes.isha.toInt())
 
         prayTimes = PrayTimesCalculator.calculate(
             CalculationMethod.ISNA,
@@ -28,12 +28,12 @@ class MainTests {
             Coordinate(43.0, -80.0, 0.0),
             CalculationMethod.AsrJuristics.Standard
         )
-        assertEquals(Clock(5, 27).toInt(), prayTimes.fajrClock.toInt())
-        assertEquals(Clock(6, 49).toInt(), prayTimes.sunriseClock.toInt())
-        assertEquals(Clock(13, 19).toInt(), prayTimes.dhuhrClock.toInt())
-        assertEquals(Clock(16, 57).toInt(), prayTimes.asrClock.toInt())
-        assertEquals(Clock(19, 48).toInt(), prayTimes.maghribClock.toInt())
-        assertEquals(Clock(21, 9).toInt(), prayTimes.ishaClock.toInt())
+        assertEquals(Clock(5, 27).toInt(), prayTimes.fajr.toInt())
+        assertEquals(Clock(6, 49).toInt(), prayTimes.sunrise.toInt())
+        assertEquals(Clock(13, 19).toInt(), prayTimes.dhuhr.toInt())
+        assertEquals(Clock(16, 57).toInt(), prayTimes.asr.toInt())
+        assertEquals(Clock(19, 48).toInt(), prayTimes.maghrib.toInt())
+        assertEquals(Clock(21, 9).toInt(), prayTimes.isha.toInt())
 
         prayTimes = PrayTimesCalculator.calculate(
             CalculationMethod.Egypt,
@@ -41,12 +41,12 @@ class MainTests {
             Coordinate(43.0, -80.0, 0.0),
             CalculationMethod.AsrJuristics.Standard
         )
-        assertEquals(Clock(5, 0).toInt(), prayTimes.fajrClock.toInt())
-        assertEquals(Clock(6, 49).toInt(), prayTimes.sunriseClock.toInt())
-        assertEquals(Clock(13, 19).toInt(), prayTimes.dhuhrClock.toInt())
-        assertEquals(Clock(16, 57).toInt(), prayTimes.asrClock.toInt())
-        assertEquals(Clock(19, 48).toInt(), prayTimes.maghribClock.toInt())
-        assertEquals(Clock(21, 24).toInt(), prayTimes.ishaClock.toInt())
+        assertEquals(Clock(5, 0).toInt(), prayTimes.fajr.toInt())
+        assertEquals(Clock(6, 49).toInt(), prayTimes.sunrise.toInt())
+        assertEquals(Clock(13, 19).toInt(), prayTimes.dhuhr.toInt())
+        assertEquals(Clock(16, 57).toInt(), prayTimes.asr.toInt())
+        assertEquals(Clock(19, 48).toInt(), prayTimes.maghrib.toInt())
+        assertEquals(Clock(21, 24).toInt(), prayTimes.isha.toInt())
 
         prayTimes = PrayTimesCalculator.calculate(
             CalculationMethod.Makkah,
@@ -54,12 +54,12 @@ class MainTests {
             Coordinate(43.0, -80.0, 0.0),
             CalculationMethod.AsrJuristics.Standard
         )
-        assertEquals(Clock(5, 6).toInt(), prayTimes.fajrClock.toInt())
-        assertEquals(Clock(6, 49).toInt(), prayTimes.sunriseClock.toInt())
-        assertEquals(Clock(13, 19).toInt(), prayTimes.dhuhrClock.toInt())
-        assertEquals(Clock(16, 57).toInt(), prayTimes.asrClock.toInt())
-        assertEquals(Clock(19, 48).toInt(), prayTimes.maghribClock.toInt())
-        assertEquals(Clock(21, 18).toInt(), prayTimes.ishaClock.toInt())
+        assertEquals(Clock(5, 6).toInt(), prayTimes.fajr.toInt())
+        assertEquals(Clock(6, 49).toInt(), prayTimes.sunrise.toInt())
+        assertEquals(Clock(13, 19).toInt(), prayTimes.dhuhr.toInt())
+        assertEquals(Clock(16, 57).toInt(), prayTimes.asr.toInt())
+        assertEquals(Clock(19, 48).toInt(), prayTimes.maghrib.toInt())
+        assertEquals(Clock(21, 18).toInt(), prayTimes.isha.toInt())
 
         prayTimes = PrayTimesCalculator.calculate(
             CalculationMethod.Karachi,
@@ -67,12 +67,12 @@ class MainTests {
             Coordinate(43.0, -80.0, 0.0),
             CalculationMethod.AsrJuristics.Standard
         )
-        assertEquals(Clock(5, 9).toInt(), prayTimes.fajrClock.toInt())
-        assertEquals(Clock(6, 49).toInt(), prayTimes.sunriseClock.toInt())
-        assertEquals(Clock(13, 19).toInt(), prayTimes.dhuhrClock.toInt())
-        assertEquals(Clock(16, 57).toInt(), prayTimes.asrClock.toInt())
-        assertEquals(Clock(19, 48).toInt(), prayTimes.maghribClock.toInt())
-        assertEquals(Clock(21, 27).toInt(), prayTimes.ishaClock.toInt())
+        assertEquals(Clock(5, 9).toInt(), prayTimes.fajr.toInt())
+        assertEquals(Clock(6, 49).toInt(), prayTimes.sunrise.toInt())
+        assertEquals(Clock(13, 19).toInt(), prayTimes.dhuhr.toInt())
+        assertEquals(Clock(16, 57).toInt(), prayTimes.asr.toInt())
+        assertEquals(Clock(19, 48).toInt(), prayTimes.maghrib.toInt())
+        assertEquals(Clock(21, 27).toInt(), prayTimes.isha.toInt())
 
         prayTimes = PrayTimesCalculator.calculate(
             CalculationMethod.Jafari,
@@ -80,12 +80,12 @@ class MainTests {
             Coordinate(43.0, -80.0, 0.0),
             CalculationMethod.AsrJuristics.Standard
         )
-        assertEquals(Clock(5, 21).toInt(), prayTimes.fajrClock.toInt())
-        assertEquals(Clock(6, 49).toInt(), prayTimes.sunriseClock.toInt())
-        assertEquals(Clock(13, 19).toInt(), prayTimes.dhuhrClock.toInt())
-        assertEquals(Clock(16, 57).toInt(), prayTimes.asrClock.toInt())
-        assertEquals(Clock(20, 5).toInt(), prayTimes.maghribClock.toInt())
-        assertEquals(Clock(21, 3).toInt(), prayTimes.ishaClock.toInt())
+        assertEquals(Clock(5, 21).toInt(), prayTimes.fajr.toInt())
+        assertEquals(Clock(6, 49).toInt(), prayTimes.sunrise.toInt())
+        assertEquals(Clock(13, 19).toInt(), prayTimes.dhuhr.toInt())
+        assertEquals(Clock(16, 57).toInt(), prayTimes.asr.toInt())
+        assertEquals(Clock(20, 5).toInt(), prayTimes.maghrib.toInt())
+        assertEquals(Clock(21, 3).toInt(), prayTimes.isha.toInt())
 
         prayTimes = PrayTimesCalculator.calculate(
             CalculationMethod.Tehran,
@@ -93,12 +93,12 @@ class MainTests {
             Coordinate(43.0, -80.0, 0.0),
             CalculationMethod.AsrJuristics.Standard
         )
-        assertEquals(Clock(5, 11).toInt(), prayTimes.fajrClock.toInt())
-        assertEquals(Clock(6, 49).toInt(), prayTimes.sunriseClock.toInt())
-        assertEquals(Clock(13, 19).toInt(), prayTimes.dhuhrClock.toInt())
-        assertEquals(Clock(16, 57).toInt(), prayTimes.asrClock.toInt())
-        assertEquals(Clock(20, 8).toInt(), prayTimes.maghribClock.toInt())
-        assertEquals(Clock(21, 3).toInt(), prayTimes.ishaClock.toInt())
+        assertEquals(Clock(5, 11).toInt(), prayTimes.fajr.toInt())
+        assertEquals(Clock(6, 49).toInt(), prayTimes.sunrise.toInt())
+        assertEquals(Clock(13, 19).toInt(), prayTimes.dhuhr.toInt())
+        assertEquals(Clock(16, 57).toInt(), prayTimes.asr.toInt())
+        assertEquals(Clock(20, 8).toInt(), prayTimes.maghrib.toInt())
+        assertEquals(Clock(21, 3).toInt(), prayTimes.isha.toInt())
 
         prayTimes = PrayTimesCalculator.calculate(
             CalculationMethod.Tehran,
@@ -106,12 +106,12 @@ class MainTests {
             Coordinate(3.147778, 101.695278, 0.0),
             CalculationMethod.AsrJuristics.Standard
         )
-        assertEquals(Clock(5, 49).toInt(), prayTimes.fajrClock.toInt())
-        assertEquals(Clock(7, 3).toInt(), prayTimes.sunriseClock.toInt())
-        assertEquals(Clock(13, 12).toInt(), prayTimes.dhuhrClock.toInt())
-        assertEquals(Clock(16, 39).toInt(), prayTimes.asrClock.toInt())
-        assertEquals(Clock(19, 37).toInt(), prayTimes.maghribClock.toInt())
-        assertEquals(Clock(20, 19).toInt(), prayTimes.ishaClock.toInt())
+        assertEquals(Clock(5, 49).toInt(), prayTimes.fajr.toInt())
+        assertEquals(Clock(7, 3).toInt(), prayTimes.sunrise.toInt())
+        assertEquals(Clock(13, 12).toInt(), prayTimes.dhuhr.toInt())
+        assertEquals(Clock(16, 39).toInt(), prayTimes.asr.toInt())
+        assertEquals(Clock(19, 37).toInt(), prayTimes.maghrib.toInt())
+        assertEquals(Clock(20, 19).toInt(), prayTimes.isha.toInt())
     }
 
     private fun getDate(timeZone: String, year: Int, month: Int, dayOfMonth: Int): GregorianCalendar =

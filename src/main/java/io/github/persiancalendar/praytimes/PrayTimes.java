@@ -16,75 +16,39 @@ public class PrayTimes {
         this.midnight = midnight;
     }
 
-    double getImsak() {
-        return imsak;
-    }
-
-    public Clock getImsakClock() {
+    public Clock getImsak() {
         return Clock.fromDouble(imsak);
     }
 
-    double getFajr() {
-        return fajr;
-    }
-
-    public Clock getFajrClock() {
+    public Clock getFajr() {
         return Clock.fromDouble(fajr);
     }
 
-    double getSunrise() {
-        return sunrise;
-    }
-
-    public Clock getSunriseClock() {
+    public Clock getSunrise() {
         return Clock.fromDouble(sunrise);
     }
 
-    double getDhuhr() {
-        return dhuhr;
-    }
-
-    public Clock getDhuhrClock() {
+    public Clock getDhuhr() {
         return Clock.fromDouble(dhuhr);
     }
 
-    double getAsr() {
-        return asr;
-    }
-
-    public Clock getAsrClock() {
+    public Clock getAsr() {
         return Clock.fromDouble(asr);
     }
 
-    double getSunset() {
-        return sunset;
-    }
-
-    public Clock getSunsetClock() {
+    public Clock getSunset() {
         return Clock.fromDouble(sunset);
     }
 
-    double getMaghrib() {
-        return maghrib;
-    }
-
-    public Clock getMaghribClock() {
+    public Clock getMaghrib() {
         return Clock.fromDouble(maghrib);
     }
 
-    double getIsha() {
-        return isha;
-    }
-
-    public Clock getIshaClock() {
+    public Clock getIsha() {
         return Clock.fromDouble(isha);
     }
 
-    double getMidnight() {
-        return midnight;
-    }
-
-    public Clock getMidnightClock() {
+    public Clock getMidnight() {
         return Clock.fromDouble(midnight);
     }
 }
