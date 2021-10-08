@@ -21,33 +21,33 @@ public class PrayTimes {
     private static final MinuteOrAngleDouble DEFAULT_TIME_IMSAK = min(10);
     private static final MinuteOrAngleDouble DEFAULT_TIME_DHUHR = min(0);
 
-    public PrayTimes(CalculationMethod method, GregorianCalendar calendar, Coordinate coordinate,
+    public PrayTimes(CalculationMethod method, GregorianCalendar calendar, Coordinates coordinates,
                      CalculationMethod.AsrJuristics asrMethod) {
-        this(method, calendar, coordinate, asrMethod, CalculationMethod.HighLatMethods.NightMiddle);
+        this(method, calendar, coordinates, asrMethod, CalculationMethod.HighLatMethods.NightMiddle);
     }
 
-    public PrayTimes(CalculationMethod method, GregorianCalendar calendar, Coordinate coordinate,
+    public PrayTimes(CalculationMethod method, GregorianCalendar calendar, Coordinates coordinates,
                      CalculationMethod.AsrJuristics asrMethod,
                      CalculationMethod.HighLatMethods highLatMethod) {
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH) + 1;
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        double jdate = julian(year, month, day) - coordinate.longitude / (15. * 24.);
+        double jdate = julian(year, month, day) - coordinates.longitude / (15. * 24.);
 
         // compute prayer times at given julian date
-        double imsak = sunAngleTime(jdate, DEFAULT_TIME_IMSAK, DEFAULT_IMSAK, true, coordinate);
-        double fajr = sunAngleTime(jdate, method.getFajr(), DEFAULT_FAJR, true, coordinate);
-        double sunrise = sunAngleTime(jdate, riseSetAngle(coordinate), DEFAULT_SUNRISE, true, coordinate);
+        double imsak = sunAngleTime(jdate, DEFAULT_TIME_IMSAK, DEFAULT_IMSAK, true, coordinates);
+        double fajr = sunAngleTime(jdate, method.getFajr(), DEFAULT_FAJR, true, coordinates);
+        double sunrise = sunAngleTime(jdate, riseSetAngle(coordinates), DEFAULT_SUNRISE, true, coordinates);
         double dhuhr = midDay(jdate, DEFAULT_DHUHR);
-        double asr = asrTime(jdate, asrMethod.asrFactor, DEFAULT_ASR, coordinate);
-        double sunset = sunAngleTime(jdate, riseSetAngle(coordinate), DEFAULT_SUNSET, coordinate);
-        double maghrib = sunAngleTime(jdate, method.getMaghrib(), DEFAULT_MAGHRIB, coordinate);
-        double isha = sunAngleTime(jdate, method.getIsha(), DEFAULT_ISHA, coordinate);
+        double asr = asrTime(jdate, asrMethod.asrFactor, DEFAULT_ASR, coordinates);
+        double sunset = sunAngleTime(jdate, riseSetAngle(coordinates), DEFAULT_SUNSET, coordinates);
+        double maghrib = sunAngleTime(jdate, method.getMaghrib(), DEFAULT_MAGHRIB, coordinates);
+        double isha = sunAngleTime(jdate, method.getIsha(), DEFAULT_ISHA, coordinates);
 
         // Adjust times
         {
             double offset = calendar.getTimeZone().getOffset(calendar.getTime().getTime()) / (60 * 60 * 1000.0);
-            double addToAll = offset - coordinate.longitude / 15.;
+            double addToAll = offset - coordinates.longitude / 15.;
             imsak += addToAll;
             fajr += addToAll;
             sunrise += addToAll;
@@ -102,26 +102,26 @@ public class PrayTimes {
     }
 
     // compute the time at which sun reaches a specific angle below horizon
-    private static double sunAngleTime(double jdate, MinuteOrAngleDouble angle, double time, boolean ccw, Coordinate coordinate) {
+    private static double sunAngleTime(double jdate, MinuteOrAngleDouble angle, double time, boolean ccw, Coordinates coordinates) {
         // TODO: I must enable below line!
         // if (angle.isMinute()) throw new IllegalArgumentException("angle argument must be degree, not minute!");
         double decl = sunPosition(jdate + time).declination;
         double noon = dtr(midDay(jdate, time));
         double t = Math.acos((-Math.sin(dtr(angle.value)) - Math.sin(decl)
-                * Math.sin(dtr(coordinate.latitude)))
-                / (Math.cos(decl) * Math.cos(dtr(coordinate.latitude)))) / 15.;
+                * Math.sin(dtr(coordinates.latitude)))
+                / (Math.cos(decl) * Math.cos(dtr(coordinates.latitude)))) / 15.;
         return rtd(noon + (ccw ? -t : t));
     }
 
-    private static double sunAngleTime(double jdate, MinuteOrAngleDouble angle, double time, Coordinate coordinate) {
-        return sunAngleTime(jdate, angle, time, false, coordinate);
+    private static double sunAngleTime(double jdate, MinuteOrAngleDouble angle, double time, Coordinates coordinates) {
+        return sunAngleTime(jdate, angle, time, false, coordinates);
     }
 
     // compute asr time
-    private static double asrTime(double jdate, double factor, double time, Coordinate coordinate) {
+    private static double asrTime(double jdate, double factor, double time, Coordinates coordinates) {
         double decl = sunPosition(jdate + time).declination;
-        double angle = -Math.atan(1 / (factor + Math.tan(Math.abs(dtr(coordinate.latitude) - decl))));
-        return sunAngleTime(jdate, deg(rtd(angle)), time, coordinate);
+        double angle = -Math.atan(1 / (factor + Math.tan(Math.abs(dtr(coordinates.latitude) - decl))));
+        return sunAngleTime(jdate, deg(rtd(angle)), time, coordinates);
     }
 
     // compute declination angle of sun and equation of time
@@ -162,10 +162,10 @@ public class PrayTimes {
     //
 
     // return sun angle for sunset/sunrise
-    private static MinuteOrAngleDouble riseSetAngle(Coordinate coordinate) {
+    private static MinuteOrAngleDouble riseSetAngle(Coordinates coordinates) {
         // var earthRad = 6371009; // in meters
         // var angle = DMath.arccos(earthRad/(earthRad+ elv));
-        double angle = 0.0347 * Math.sqrt(coordinate.elevation); // an approximation
+        double angle = 0.0347 * Math.sqrt(coordinates.elevation); // an approximation
         return deg(0.833 + angle);
     }
 
