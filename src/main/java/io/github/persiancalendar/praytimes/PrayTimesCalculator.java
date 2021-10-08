@@ -2,6 +2,7 @@ package io.github.persiancalendar.praytimes;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
 import static io.github.persiancalendar.praytimes.Utils.deg;
@@ -28,15 +29,9 @@ public class PrayTimesCalculator {
     // Calculation Logic
     //
     //
-    public static PrayTimes calculate(CalculationMethod method, Date date, Coordinate coordinate,
-                                      CalculationMethod.AsrJuristics asrMethod, Double timeZone, Boolean dst) {
-        double mTimeZone = timeZone != null ? timeZone : getTimeZone(date);
-        boolean _dst = dst != null ? dst : getDst(date);
-        if (_dst) {
-            mTimeZone++;
-        }
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
+    public static PrayTimes calculate(CalculationMethod method, GregorianCalendar calendar, Coordinate coordinate,
+                                      CalculationMethod.AsrJuristics asrMethod) {
+        double offset = calendar.getTimeZone().getOffset(calendar.getTime().getTime()) / (60 * 60 * 1000.0);
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH) + 1;
         int day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -54,7 +49,7 @@ public class PrayTimesCalculator {
 
         // Adjust times
         {
-            double addToAll = mTimeZone - coordinate.getLongitude() / 15d;
+            double addToAll = offset - coordinate.getLongitude() / 15d;
             imsak += addToAll;
             fajr += addToAll;
             sunrise += addToAll;
@@ -92,20 +87,6 @@ public class PrayTimesCalculator {
                 : sunset + timeDiff(sunset, sunrise) / 2;
 
         return new PrayTimes(imsak, fajr, sunrise, dhuhr, asr, sunset, maghrib, isha, midnight);
-    }
-
-    public static PrayTimes calculate(CalculationMethod method, Date date, Coordinate coordinate,
-                                      Double timeZone, Boolean dst) {
-        return calculate(method, date, coordinate, CalculationMethod.AsrJuristics.Standard, timeZone, dst);
-    }
-
-    public static PrayTimes calculate(CalculationMethod method, Date date, Coordinate coordinate) {
-        return calculate(method, date, coordinate, CalculationMethod.AsrJuristics.Standard);
-    }
-
-    public static PrayTimes calculate(CalculationMethod method, Date date, Coordinate coordinate,
-                                      CalculationMethod.AsrJuristics asrMethod) {
-        return calculate(method, date, coordinate, asrMethod, null, null);
     }
 
     // compute mid-day time
@@ -208,21 +189,6 @@ public class PrayTimesCalculator {
             portion = 1d / 7d;
         }
         return portion * night;
-    }
-
-    // get local time zone
-    private static double getTimeZone(Date date) {
-        return TimeZone.getDefault().getRawOffset() / (60 * 60 * 1000.0);
-    }
-
-    //
-    // Time Zone Functions
-    //
-    //
-
-    // get daylight saving for a given date
-    private static boolean getDst(Date date) {
-        return TimeZone.getDefault().inDaylightTime(date);
     }
 
     // compute the difference between two times

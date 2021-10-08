@@ -3,8 +3,8 @@ package io.github.persiancalendar.praytimes;
 public class PrayTimes {
     private final double imsak, fajr, sunrise, dhuhr, asr, sunset, maghrib, isha, midnight;
 
-    public PrayTimes(double imsak, double fajr, double sunrise, double dhuhr,
-                     double asr, double sunset, double maghrib, double isha, double midnight) {
+    PrayTimes(double imsak, double fajr, double sunrise, double dhuhr,
+              double asr, double sunset, double maghrib, double isha, double midnight) {
         this.imsak = imsak;
         this.fajr = fajr;
         this.sunrise = sunrise;

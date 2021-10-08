@@ -10,9 +10,9 @@ class MainTests {
         // http://praytimes.org/code/v2/js/examples/monthly.htm
         var prayTimes = PrayTimesCalculator.calculate(
             CalculationMethod.MWL,
-            getDate(2018, 9, 5),
+            getDate("GMT-4:00", 2018, 9, 5),
             Coordinate(43.0, -80.0, 0.0),
-            -5.0, true
+            CalculationMethod.AsrJuristics.Standard
         )
 
         assertEquals(Clock(5, 9).toInt(), prayTimes.fajrClock.toInt())
@@ -24,9 +24,9 @@ class MainTests {
 
         prayTimes = PrayTimesCalculator.calculate(
             CalculationMethod.ISNA,
-            getDate(2018, 9, 5),
+            getDate("GMT-4:00", 2018, 9, 5),
             Coordinate(43.0, -80.0, 0.0),
-            -5.0, true
+            CalculationMethod.AsrJuristics.Standard
         )
         assertEquals(Clock(5, 27).toInt(), prayTimes.fajrClock.toInt())
         assertEquals(Clock(6, 49).toInt(), prayTimes.sunriseClock.toInt())
@@ -37,9 +37,9 @@ class MainTests {
 
         prayTimes = PrayTimesCalculator.calculate(
             CalculationMethod.Egypt,
-            getDate(2018, 9, 5),
+            getDate("GMT-4:00", 2018, 9, 5),
             Coordinate(43.0, -80.0, 0.0),
-            -5.0, true
+            CalculationMethod.AsrJuristics.Standard
         )
         assertEquals(Clock(5, 0).toInt(), prayTimes.fajrClock.toInt())
         assertEquals(Clock(6, 49).toInt(), prayTimes.sunriseClock.toInt())
@@ -50,9 +50,9 @@ class MainTests {
 
         prayTimes = PrayTimesCalculator.calculate(
             CalculationMethod.Makkah,
-            getDate(2018, 9, 5),
+            getDate("GMT-4:00", 2018, 9, 5),
             Coordinate(43.0, -80.0, 0.0),
-            -5.0, true
+            CalculationMethod.AsrJuristics.Standard
         )
         assertEquals(Clock(5, 6).toInt(), prayTimes.fajrClock.toInt())
         assertEquals(Clock(6, 49).toInt(), prayTimes.sunriseClock.toInt())
@@ -63,9 +63,9 @@ class MainTests {
 
         prayTimes = PrayTimesCalculator.calculate(
             CalculationMethod.Karachi,
-            getDate(2018, 9, 5),
+            getDate("GMT-4:00", 2018, 9, 5),
             Coordinate(43.0, -80.0, 0.0),
-            -5.0, true
+            CalculationMethod.AsrJuristics.Standard
         )
         assertEquals(Clock(5, 9).toInt(), prayTimes.fajrClock.toInt())
         assertEquals(Clock(6, 49).toInt(), prayTimes.sunriseClock.toInt())
@@ -76,9 +76,9 @@ class MainTests {
 
         prayTimes = PrayTimesCalculator.calculate(
             CalculationMethod.Jafari,
-            getDate(2018, 9, 5),
+            getDate("GMT-4:00", 2018, 9, 5),
             Coordinate(43.0, -80.0, 0.0),
-            -5.0, true
+            CalculationMethod.AsrJuristics.Standard
         )
         assertEquals(Clock(5, 21).toInt(), prayTimes.fajrClock.toInt())
         assertEquals(Clock(6, 49).toInt(), prayTimes.sunriseClock.toInt())
@@ -89,9 +89,9 @@ class MainTests {
 
         prayTimes = PrayTimesCalculator.calculate(
             CalculationMethod.Tehran,
-            getDate(2018, 9, 5),
+            getDate("GMT-4:00", 2018, 9, 5),
             Coordinate(43.0, -80.0, 0.0),
-            -5.0, true
+            CalculationMethod.AsrJuristics.Standard
         )
         assertEquals(Clock(5, 11).toInt(), prayTimes.fajrClock.toInt())
         assertEquals(Clock(6, 49).toInt(), prayTimes.sunriseClock.toInt())
@@ -102,9 +102,9 @@ class MainTests {
 
         prayTimes = PrayTimesCalculator.calculate(
             CalculationMethod.Tehran,
-            getDate(2019, 6, 9),
+            getDate("GMT+8:00", 2019, 6, 9),
             Coordinate(3.147778, 101.695278, 0.0),
-            8.0, false
+            CalculationMethod.AsrJuristics.Standard
         )
         assertEquals(Clock(5, 49).toInt(), prayTimes.fajrClock.toInt())
         assertEquals(Clock(7, 3).toInt(), prayTimes.sunriseClock.toInt())
@@ -114,8 +114,8 @@ class MainTests {
         assertEquals(Clock(20, 19).toInt(), prayTimes.ishaClock.toInt())
     }
 
-    private fun getDate(year: Int, month: Int, dayOfMonth: Int): Date =
-        Calendar.getInstance(TimeZone.getTimeZone("UTC")).apply {
+    private fun getDate(timeZone: String, year: Int, month: Int, dayOfMonth: Int): GregorianCalendar =
+        GregorianCalendar(TimeZone.getTimeZone(timeZone)).apply {
             set(year, month - 1, dayOfMonth, 0, 0)
-        }.time
+        }
 }
