@@ -20,7 +20,7 @@ public class PrayTimes {
     private static final CalculationMethod.MinuteOrAngleDouble DEFAULT_TIME_IMSAK = min(10);
     private static final CalculationMethod.MinuteOrAngleDouble DEFAULT_TIME_DHUHR = min(0);
 
-    // Fields
+    // A real number [0-24) of a day, up to client to turn it to hours and minutes, and either show seconds or round it
     public final double imsak, fajr, sunrise, dhuhr, asr, sunset, maghrib, isha, midnight;
 
     public PrayTimes(CalculationMethod method, GregorianCalendar calendar, Coordinates coordinates,
