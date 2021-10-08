@@ -14,7 +14,7 @@ class Utils {
     }
 
     public static MinuteOrAngleDouble min(int value) {
-        return new MinuteOrAngleDouble((double) value, true);
+        return new MinuteOrAngleDouble(value, true);
     }
 
     static MinuteOrAngleDouble deg(double value) {
