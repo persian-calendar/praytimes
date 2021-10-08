@@ -40,12 +40,12 @@ class MainTests {
             CalculationMethod.Egypt,
             getDate("GMT-4:00", 2018, 9, 5),
             Coordinates(43.0, -80.0, 0.0),
-            CalculationMethod.AsrJuristics.Standard
+            CalculationMethod.AsrJuristics.Hanafi
         )
         assertEquals(Clock(5, 0).toMinutes(), prayTimes.fajr.toRoundedClock().toMinutes())
         assertEquals(Clock(6, 49).toMinutes(), prayTimes.sunrise.toRoundedClock().toMinutes())
         assertEquals(Clock(13, 19).toMinutes(), prayTimes.dhuhr.toRoundedClock().toMinutes())
-        assertEquals(Clock(16, 57).toMinutes(), prayTimes.asr.toRoundedClock().toMinutes())
+        assertEquals(Clock(17, 53).toMinutes(), prayTimes.asr.toRoundedClock().toMinutes())
         assertEquals(Clock(19, 48).toMinutes(), prayTimes.maghrib.toRoundedClock().toMinutes())
         assertEquals(Clock(21, 24).toMinutes(), prayTimes.isha.toRoundedClock().toMinutes())
 
