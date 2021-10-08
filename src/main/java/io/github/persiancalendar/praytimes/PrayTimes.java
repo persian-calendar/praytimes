@@ -19,8 +19,8 @@ public class PrayTimes {
     private static final double DEFAULT_SUNSET = 18. / 24;
     private static final double DEFAULT_MAGHRIB = 18. / 24;
     private static final double DEFAULT_ISHA = 18. / 24;
-    private static final MinuteOrAngleDouble DEFAULT_TIME_IMSAK = min(10);
-    private static final MinuteOrAngleDouble DEFAULT_TIME_DHUHR = min(0);
+    private static final CalculationMethod.MinuteOrAngleDouble DEFAULT_TIME_IMSAK = min(10);
+    private static final CalculationMethod.MinuteOrAngleDouble DEFAULT_TIME_DHUHR = min(0);
 
     public PrayTimes(CalculationMethod method, GregorianCalendar calendar, Coordinates coordinates,
                      AsrMethod asrMethod) {
@@ -103,7 +103,7 @@ public class PrayTimes {
     }
 
     // compute the time at which sun reaches a specific angle below horizon
-    private static double sunAngleTime(double jdate, MinuteOrAngleDouble angle, double time, boolean ccw, Coordinates coordinates) {
+    private static double sunAngleTime(double jdate, CalculationMethod.MinuteOrAngleDouble angle, double time, boolean ccw, Coordinates coordinates) {
         // TODO: I must enable below line!
         // if (angle.isMinute()) throw new IllegalArgumentException("angle argument must be degree, not minute!");
         double decl = sunPosition(jdate + time).declination;
@@ -114,7 +114,7 @@ public class PrayTimes {
         return rtd(noon + (ccw ? -t : t));
     }
 
-    private static double sunAngleTime(double jdate, MinuteOrAngleDouble angle, double time, Coordinates coordinates) {
+    private static double sunAngleTime(double jdate, CalculationMethod.MinuteOrAngleDouble angle, double time, Coordinates coordinates) {
         return sunAngleTime(jdate, angle, time, false, coordinates);
     }
 
@@ -163,7 +163,7 @@ public class PrayTimes {
     //
 
     // return sun angle for sunset/sunrise
-    private static MinuteOrAngleDouble riseSetAngle(Coordinates coordinates) {
+    private static CalculationMethod.MinuteOrAngleDouble riseSetAngle(Coordinates coordinates) {
         // var earthRad = 6371009; // in meters
         // var angle = DMath.arccos(earthRad/(earthRad+ elv));
         double angle = 0.0347 * Math.sqrt(coordinates.elevation); // an approximation

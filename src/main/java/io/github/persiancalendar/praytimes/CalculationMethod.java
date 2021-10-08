@@ -70,4 +70,15 @@ public enum CalculationMethod {
     static MinuteOrAngleDouble deg(double value) {
         return new MinuteOrAngleDouble(value, false);
     }
+
+    static class MinuteOrAngleDouble {
+
+        final boolean isMinutes;
+        final double value;
+
+        MinuteOrAngleDouble(double value, boolean isMinutes) {
+            this.value = value;
+            this.isMinutes = isMinutes;
+        }
+    }
 }
