@@ -21,12 +21,15 @@ public enum CalculationMethod {
     final MinuteOrAngleDouble maghrib;
     final MidnightType midnight;
 
+    public final boolean isJafari;
+
     CalculationMethod(MinuteOrAngleDouble fajr, MinuteOrAngleDouble isha, MinuteOrAngleDouble maghrib,
                       MidnightType midnight) {
         this.fajr = fajr;
         this.isha = isha;
         this.maghrib = maghrib;
         this.midnight = midnight;
+        this.isJafari = midnight == MidnightType.Jafari;
     }
 
     CalculationMethod(MinuteOrAngleDouble fajr, MinuteOrAngleDouble isha, MinuteOrAngleDouble maghrib) {
