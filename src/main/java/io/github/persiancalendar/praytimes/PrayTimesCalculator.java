@@ -12,15 +12,16 @@ import static io.github.persiancalendar.praytimes.Utils.min;
 import static io.github.persiancalendar.praytimes.Utils.rtd;
 
 public class PrayTimesCalculator {
+
     // default times
-    private static final double DEFAULT_IMSAK = 5d / 24;
-    private static final double DEFAULT_FAJR = 5d / 24;
-    private static final double DEFAULT_SUNRISE = 6d / 24;
-    private static final double DEFAULT_DHUHR = 12d / 24;
-    private static final double DEFAULT_ASR = 13d / 24;
-    private static final double DEFAULT_SUNSET = 18d / 24;
-    private static final double DEFAULT_MAGHRIB = 18d / 24;
-    private static final double DEFAULT_ISHA = 18d / 24;
+    private static final double DEFAULT_IMSAK = 5. / 24;
+    private static final double DEFAULT_FAJR = 5. / 24;
+    private static final double DEFAULT_SUNRISE = 6. / 24;
+    private static final double DEFAULT_DHUHR = 12. / 24;
+    private static final double DEFAULT_ASR = 13. / 24;
+    private static final double DEFAULT_SUNSET = 18. / 24;
+    private static final double DEFAULT_MAGHRIB = 18. / 24;
+    private static final double DEFAULT_ISHA = 18. / 24;
     private static final MinuteOrAngleDouble DEFAULT_TIME_IMSAK = min(10);
     private static final MinuteOrAngleDouble DEFAULT_TIME_DHUHR = min(0);
     private static final CalculationMethod.HighLatMethods HIGH_LATS_METHOD = CalculationMethod.HighLatMethods.NightMiddle;
@@ -31,11 +32,10 @@ public class PrayTimesCalculator {
     //
     public static PrayTimes calculate(CalculationMethod method, GregorianCalendar calendar, Coordinate coordinate,
                                       CalculationMethod.AsrJuristics asrMethod) {
-        double offset = calendar.getTimeZone().getOffset(calendar.getTime().getTime()) / (60 * 60 * 1000.0);
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH) + 1;
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        double jdate = julian(year, month, day) - coordinate.getLongitude() / (15d * 24d);
+        double jdate = julian(year, month, day) - coordinate.getLongitude() / (15. * 24.);
 
         // compute prayer times at given julian date
         double imsak = sunAngleTime(jdate, DEFAULT_TIME_IMSAK, DEFAULT_IMSAK, true, coordinate);
@@ -49,7 +49,8 @@ public class PrayTimesCalculator {
 
         // Adjust times
         {
-            double addToAll = offset - coordinate.getLongitude() / 15d;
+            double offset = calendar.getTimeZone().getOffset(calendar.getTime().getTime()) / (60 * 60 * 1000.0);
+            double addToAll = offset - coordinate.getLongitude() / 15.;
             imsak += addToAll;
             fajr += addToAll;
             sunrise += addToAll;
@@ -70,15 +71,15 @@ public class PrayTimesCalculator {
             }
 
             if (DEFAULT_TIME_IMSAK.isMinute()) {
-                imsak = fajr - DEFAULT_TIME_IMSAK.getValue() / 60;
+                imsak = fajr - DEFAULT_TIME_IMSAK.getValue() / 60.;
             }
             if (method.getMaghrib().isMinute()) {
-                maghrib = sunset + method.getMaghrib().getValue() / 60d;
+                maghrib = sunset + method.getMaghrib().getValue() / 60.;
             }
             if (method.getIsha().isMinute()) {
-                isha = maghrib + method.getIsha().getValue() / 60d;
+                isha = maghrib + method.getIsha().getValue() / 60.;
             }
-            dhuhr = dhuhr + DEFAULT_TIME_DHUHR.getValue() / 60d;
+            dhuhr = dhuhr + DEFAULT_TIME_DHUHR.getValue() / 60.;
         }
 
         // add midnight time
@@ -103,7 +104,7 @@ public class PrayTimesCalculator {
         double noon = dtr(midDay(jdate, time));
         double t = Math.acos((-Math.sin(dtr(angle.getValue())) - Math.sin(decl)
                 * Math.sin(dtr(coordinate.getLatitude())))
-                / (Math.cos(decl) * Math.cos(dtr(coordinate.getLatitude())))) / 15d;
+                / (Math.cos(decl) * Math.cos(dtr(coordinate.getLatitude())))) / 15.;
         return rtd(noon + (ccw ? -t : t));
     }
 
