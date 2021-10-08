@@ -40,24 +40,24 @@ public enum CalculationMethod {
         this(fajr, isha, null);
     }
 
-    public MinuteOrAngleDouble getFajr() {
+    MinuteOrAngleDouble getFajr() {
         return fajr;
     }
 
-    public MinuteOrAngleDouble getIsha() {
+    MinuteOrAngleDouble getIsha() {
         return isha;
     }
 
-    public MinuteOrAngleDouble getMaghrib() {
+    MinuteOrAngleDouble getMaghrib() {
         return maghrib;
     }
 
-    public MidnightType getMidnight() {
+    MidnightType getMidnight() {
         return midnight;
     }
 
     // Midnight Mode
-    public enum MidnightType {
+    enum MidnightType {
         Standard, // Mid Sunset to Sunrise
         Jafari // Mid Sunset to Fajr
     }
@@ -68,7 +68,7 @@ public enum CalculationMethod {
         Hanafi(2d); // Hanafi
 
         // asr shadow factor
-        public final double asrFactor;
+        final double asrFactor;
 
         AsrJuristics(double factor) {
             asrFactor = factor;

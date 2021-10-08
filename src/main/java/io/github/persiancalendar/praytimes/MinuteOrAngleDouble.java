@@ -1,6 +1,6 @@
 package io.github.persiancalendar.praytimes;
 
-public class MinuteOrAngleDouble {
+class MinuteOrAngleDouble {
 
     final boolean isMinutes;
     final double value;
