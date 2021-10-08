@@ -1,19 +1,12 @@
 package io.github.persiancalendar.praytimes;
 
 public class MinuteOrAngleDouble {
-    private final boolean isMin;
-    private final double value;
 
-    MinuteOrAngleDouble(double value, boolean isMinute) {
+    final boolean isMinutes;
+    final double value;
+
+    MinuteOrAngleDouble(double value, boolean isMinutes) {
         this.value = value;
-        this.isMin = isMinute;
-    }
-
-    boolean isMinute() {
-        return isMin;
-    }
-
-    public double getValue() {
-        return value;
+        this.isMinutes = isMinutes;
     }
 }
