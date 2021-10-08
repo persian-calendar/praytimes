@@ -1,8 +1,5 @@
 package io.github.persiancalendar.praytimes;
 
-import static io.github.persiancalendar.praytimes.Utils.deg;
-import static io.github.persiancalendar.praytimes.Utils.min;
-
 public enum CalculationMethod {
     // Muslim World League
     MWL(deg(18), deg(17)),
@@ -62,4 +59,15 @@ public enum CalculationMethod {
         Jafari // Mid Sunset to Fajr
     }
 
+    static MinuteOrAngleDouble deg(int value) {
+        return deg((double) value);
+    }
+
+    static MinuteOrAngleDouble min(int value) {
+        return new MinuteOrAngleDouble(value, true);
+    }
+
+    static MinuteOrAngleDouble deg(double value) {
+        return new MinuteOrAngleDouble(value, false);
+    }
 }

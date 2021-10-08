@@ -3,7 +3,8 @@ package io.github.persiancalendar.praytimes;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import static io.github.persiancalendar.praytimes.Utils.*;
+import static io.github.persiancalendar.praytimes.CalculationMethod.deg;
+import static io.github.persiancalendar.praytimes.CalculationMethod.min;
 
 public class PrayTimes {
 
@@ -207,6 +208,18 @@ public class PrayTimes {
     // Misc Functions
     //
     //
+    static double dtr(double d) {
+        return (d * Math.PI) / 180d;
+    }
+
+    static double rtd(double r) {
+        return (r * 180d) / Math.PI;
+    }
+
+    static double fixHour(double a) {
+        double result = a % 24;
+        return result < 0 ? 24 + result : result;
+    }
 
     private static class DeclEqt {
         final double declination;
