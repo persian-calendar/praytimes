@@ -11,7 +11,7 @@ class MainTests {
         // http://praytimes.org/code/v2/js/examples/monthly.htm
         var prayTimes = PrayTimes(
             CalculationMethod.MWL,
-            getDate("GMT-4:00", 2018, 9, 5),
+            createCalendar("GMT-4:00", 2018, 9, 5),
             Coordinates(43.0, -80.0, 0.0),
             AsrMethod.Standard
         )
@@ -25,7 +25,7 @@ class MainTests {
 
         prayTimes = PrayTimes(
             CalculationMethod.ISNA,
-            getDate("GMT-4:00", 2018, 9, 5),
+            createCalendar("GMT-4:00", 2018, 9, 5),
             Coordinates(43.0, -80.0, 0.0),
             AsrMethod.Standard
         )
@@ -38,7 +38,7 @@ class MainTests {
 
         prayTimes = PrayTimes(
             CalculationMethod.Egypt,
-            getDate("GMT-4:00", 2018, 9, 5),
+            createCalendar("GMT-4:00", 2018, 9, 5),
             Coordinates(43.0, -80.0, 0.0),
             AsrMethod.Hanafi
         )
@@ -51,7 +51,7 @@ class MainTests {
 
         prayTimes = PrayTimes(
             CalculationMethod.Makkah,
-            getDate("GMT-4:00", 2018, 9, 5),
+            createCalendar("GMT-4:00", 2018, 9, 5),
             Coordinates(43.0, -80.0, 0.0),
             AsrMethod.Standard
         )
@@ -64,7 +64,7 @@ class MainTests {
 
         prayTimes = PrayTimes(
             CalculationMethod.Karachi,
-            getDate("GMT-4:00", 2018, 9, 5),
+            createCalendar("GMT-4:00", 2018, 9, 5),
             Coordinates(43.0, -80.0, 0.0),
             AsrMethod.Standard
         )
@@ -77,7 +77,7 @@ class MainTests {
 
         prayTimes = PrayTimes(
             CalculationMethod.Jafari,
-            getDate("GMT-4:00", 2018, 9, 5),
+            createCalendar("GMT-4:00", 2018, 9, 5),
             Coordinates(43.0, -80.0, 0.0),
             AsrMethod.Standard
         )
@@ -90,7 +90,7 @@ class MainTests {
 
         prayTimes = PrayTimes(
             CalculationMethod.Tehran,
-            getDate("GMT-4:00", 2018, 9, 5),
+            createCalendar("GMT-4:00", 2018, 9, 5),
             Coordinates(43.0, -80.0, 0.0),
             AsrMethod.Standard
         )
@@ -103,7 +103,7 @@ class MainTests {
 
         prayTimes = PrayTimes(
             CalculationMethod.Tehran,
-            getDate("GMT+8:00", 2019, 6, 9),
+            createCalendar("GMT+8:00", 2019, 6, 9),
             Coordinates(3.147778, 101.695278, 0.0),
             AsrMethod.Standard
         )
@@ -126,7 +126,7 @@ class MainTests {
         return Clock(hours, minutes)
     }
 
-    private fun getDate(timeZone: String, year: Int, month: Int, dayOfMonth: Int): GregorianCalendar =
+    private fun createCalendar(timeZone: String, year: Int, month: Int, dayOfMonth: Int): GregorianCalendar =
         GregorianCalendar(TimeZone.getTimeZone(timeZone)).apply {
             set(year, month - 1, dayOfMonth, 0, 0)
         }
