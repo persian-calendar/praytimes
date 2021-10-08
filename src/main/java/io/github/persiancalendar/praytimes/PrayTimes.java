@@ -7,7 +7,7 @@ import static io.github.persiancalendar.praytimes.Utils.*;
 
 public class PrayTimes {
 
-    public final Clock imsak, fajr, sunrise, dhuhr, asr, sunset, maghrib, isha, midnight;
+    public final double imsak, fajr, sunrise, dhuhr, asr, sunset, maghrib, isha, midnight;
 
     // default times
     private static final double DEFAULT_IMSAK = 5. / 24;
@@ -84,15 +84,15 @@ public class PrayTimes {
                 ? sunset + timeDiff(sunset, fajr) / 2
                 : sunset + timeDiff(sunset, sunrise) / 2;
 
-        this.imsak = Clock.fromDouble(imsak);
-        this.fajr = Clock.fromDouble(fajr);
-        this.sunrise = Clock.fromDouble(sunrise);
-        this.dhuhr = Clock.fromDouble(dhuhr);
-        this.asr = Clock.fromDouble(asr);
-        this.sunset = Clock.fromDouble(sunset);
-        this.maghrib = Clock.fromDouble(maghrib);
-        this.isha = Clock.fromDouble(isha);
-        this.midnight = Clock.fromDouble(midnight);
+        this.imsak = fixHour(imsak);
+        this.fajr = fixHour(fajr);
+        this.sunrise = fixHour(sunrise);
+        this.dhuhr = fixHour(dhuhr);
+        this.asr = fixHour(asr);
+        this.sunset = fixHour(sunset);
+        this.maghrib = fixHour(maghrib);
+        this.isha = fixHour(isha);
+        this.midnight = fixHour(midnight);
     }
 
     // compute mid-day time
