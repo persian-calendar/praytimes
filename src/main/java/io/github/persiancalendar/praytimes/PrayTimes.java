@@ -8,8 +8,6 @@ import static io.github.persiancalendar.praytimes.CalculationMethod.min;
 
 public class PrayTimes {
 
-    public final double imsak, fajr, sunrise, dhuhr, asr, sunset, maghrib, isha, midnight;
-
     // default times
     private static final double DEFAULT_IMSAK = 5. / 24;
     private static final double DEFAULT_FAJR = 5. / 24;
@@ -21,6 +19,9 @@ public class PrayTimes {
     private static final double DEFAULT_ISHA = 18. / 24;
     private static final CalculationMethod.MinuteOrAngleDouble DEFAULT_TIME_IMSAK = min(10);
     private static final CalculationMethod.MinuteOrAngleDouble DEFAULT_TIME_DHUHR = min(0);
+
+    // Fields
+    public final double imsak, fajr, sunrise, dhuhr, asr, sunset, maghrib, isha, midnight;
 
     public PrayTimes(CalculationMethod method, GregorianCalendar calendar, Coordinates coordinates,
                      AsrMethod asrMethod) {
@@ -104,7 +105,7 @@ public class PrayTimes {
 
     // compute the time at which sun reaches a specific angle below horizon
     private static double sunAngleTime(double jdate, CalculationMethod.MinuteOrAngleDouble angle, double time, boolean ccw, Coordinates coordinates) {
-        // TODO: I must enable below line!
+        // TODO: the below assert should be considered
         // if (angle.isMinute()) throw new IllegalArgumentException("angle argument must be degree, not minute!");
         double decl = sunPosition(jdate + time).declination;
         double noon = dtr(midDay(jdate, time));

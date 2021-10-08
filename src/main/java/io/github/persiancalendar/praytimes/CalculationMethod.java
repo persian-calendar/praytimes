@@ -25,22 +25,16 @@ public enum CalculationMethod {
                       MidnightType midnight) {
         this.fajr = fajr;
         this.isha = isha;
-        this.maghrib = maghrib == null ? min(0) : maghrib;
-        this.midnight = midnight == null ? MidnightType.Standard : midnight;
+        this.maghrib = maghrib;
+        this.midnight = midnight;
     }
 
     CalculationMethod(MinuteOrAngleDouble fajr, MinuteOrAngleDouble isha, MinuteOrAngleDouble maghrib) {
-        this(fajr, isha, maghrib, null);
+        this(fajr, isha, maghrib, MidnightType.Standard);
     }
 
     CalculationMethod(MinuteOrAngleDouble fajr, MinuteOrAngleDouble isha) {
-        this(fajr, isha, null);
-    }
-
-    // Midnight Mode
-    enum MidnightType {
-        Standard, // Mid Sunset to Sunrise
-        Jafari // Mid Sunset to Fajr
+        this(fajr, isha, min(0));
     }
 
     static MinuteOrAngleDouble deg(int value) {
@@ -53,6 +47,12 @@ public enum CalculationMethod {
 
     static MinuteOrAngleDouble deg(double value) {
         return new MinuteOrAngleDouble(value, false);
+    }
+
+    // Midnight Mode
+    enum MidnightType {
+        Standard, // Mid Sunset to Sunrise
+        Jafari // Mid Sunset to Fajr
     }
 
     static class MinuteOrAngleDouble {
