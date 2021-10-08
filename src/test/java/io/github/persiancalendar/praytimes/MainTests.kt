@@ -13,7 +13,7 @@ class MainTests {
             CalculationMethod.MWL,
             getDate("GMT-4:00", 2018, 9, 5),
             Coordinates(43.0, -80.0, 0.0),
-            CalculationMethod.AsrJuristics.Standard
+            AsrMethod.Standard
         )
 
         assertEquals(Clock(5, 9).toMinutes(), prayTimes.fajr.toRoundedClock().toMinutes())
@@ -27,7 +27,7 @@ class MainTests {
             CalculationMethod.ISNA,
             getDate("GMT-4:00", 2018, 9, 5),
             Coordinates(43.0, -80.0, 0.0),
-            CalculationMethod.AsrJuristics.Standard
+            AsrMethod.Standard
         )
         assertEquals(Clock(5, 27).toMinutes(), prayTimes.fajr.toRoundedClock().toMinutes())
         assertEquals(Clock(6, 49).toMinutes(), prayTimes.sunrise.toRoundedClock().toMinutes())
@@ -40,7 +40,7 @@ class MainTests {
             CalculationMethod.Egypt,
             getDate("GMT-4:00", 2018, 9, 5),
             Coordinates(43.0, -80.0, 0.0),
-            CalculationMethod.AsrJuristics.Hanafi
+            AsrMethod.Hanafi
         )
         assertEquals(Clock(5, 0).toMinutes(), prayTimes.fajr.toRoundedClock().toMinutes())
         assertEquals(Clock(6, 49).toMinutes(), prayTimes.sunrise.toRoundedClock().toMinutes())
@@ -53,7 +53,7 @@ class MainTests {
             CalculationMethod.Makkah,
             getDate("GMT-4:00", 2018, 9, 5),
             Coordinates(43.0, -80.0, 0.0),
-            CalculationMethod.AsrJuristics.Standard
+            AsrMethod.Standard
         )
         assertEquals(Clock(5, 6).toMinutes(), prayTimes.fajr.toRoundedClock().toMinutes())
         assertEquals(Clock(6, 49).toMinutes(), prayTimes.sunrise.toRoundedClock().toMinutes())
@@ -66,7 +66,7 @@ class MainTests {
             CalculationMethod.Karachi,
             getDate("GMT-4:00", 2018, 9, 5),
             Coordinates(43.0, -80.0, 0.0),
-            CalculationMethod.AsrJuristics.Standard
+            AsrMethod.Standard
         )
         assertEquals(Clock(5, 9).toMinutes(), prayTimes.fajr.toRoundedClock().toMinutes())
         assertEquals(Clock(6, 49).toMinutes(), prayTimes.sunrise.toRoundedClock().toMinutes())
@@ -79,7 +79,7 @@ class MainTests {
             CalculationMethod.Jafari,
             getDate("GMT-4:00", 2018, 9, 5),
             Coordinates(43.0, -80.0, 0.0),
-            CalculationMethod.AsrJuristics.Standard
+            AsrMethod.Standard
         )
         assertEquals(Clock(5, 21).toMinutes(), prayTimes.fajr.toRoundedClock().toMinutes())
         assertEquals(Clock(6, 49).toMinutes(), prayTimes.sunrise.toRoundedClock().toMinutes())
@@ -92,7 +92,7 @@ class MainTests {
             CalculationMethod.Tehran,
             getDate("GMT-4:00", 2018, 9, 5),
             Coordinates(43.0, -80.0, 0.0),
-            CalculationMethod.AsrJuristics.Standard
+            AsrMethod.Standard
         )
         assertEquals(Clock(5, 11).toMinutes(), prayTimes.fajr.toRoundedClock().toMinutes())
         assertEquals(Clock(6, 49).toMinutes(), prayTimes.sunrise.toRoundedClock().toMinutes())
@@ -105,7 +105,7 @@ class MainTests {
             CalculationMethod.Tehran,
             getDate("GMT+8:00", 2019, 6, 9),
             Coordinates(3.147778, 101.695278, 0.0),
-            CalculationMethod.AsrJuristics.Standard
+            AsrMethod.Standard
         )
         assertEquals(Clock(5, 49).toMinutes(), prayTimes.fajr.toRoundedClock().toMinutes())
         assertEquals(Clock(7, 3).toMinutes(), prayTimes.sunrise.toRoundedClock().toMinutes())

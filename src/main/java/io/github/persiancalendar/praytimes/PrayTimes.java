@@ -22,13 +22,13 @@ public class PrayTimes {
     private static final MinuteOrAngleDouble DEFAULT_TIME_DHUHR = min(0);
 
     public PrayTimes(CalculationMethod method, GregorianCalendar calendar, Coordinates coordinates,
-                     CalculationMethod.AsrJuristics asrMethod) {
-        this(method, calendar, coordinates, asrMethod, CalculationMethod.HighLatMethods.NightMiddle);
+                     AsrMethod asrMethod) {
+        this(method, calendar, coordinates, asrMethod, HighLatitudeMethod.NightMiddle);
     }
 
     public PrayTimes(CalculationMethod method, GregorianCalendar calendar, Coordinates coordinates,
-                     CalculationMethod.AsrJuristics asrMethod,
-                     CalculationMethod.HighLatMethods highLatMethod) {
+                     AsrMethod asrMethod,
+                     HighLatitudeMethod highLatitudeMethod) {
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH) + 1;
         int day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -57,14 +57,14 @@ public class PrayTimes {
             maghrib += addToAll;
             isha += addToAll;
 
-            if (highLatMethod != CalculationMethod.HighLatMethods.None) {
+            if (highLatitudeMethod != HighLatitudeMethod.None) {
                 // adjust times for locations in higher latitudes
                 double nightTime = timeDiff(sunset, sunrise);
 
-                imsak = adjustHLTime(highLatMethod, imsak, sunrise, DEFAULT_TIME_IMSAK.value, nightTime, true);
-                fajr = adjustHLTime(highLatMethod, fajr, sunrise, method.getFajr().value, nightTime, true);
-                isha = adjustHLTime(highLatMethod, isha, sunset, method.getIsha().value, nightTime);
-                maghrib = adjustHLTime(highLatMethod, maghrib, sunset, method.getMaghrib().value, nightTime);
+                imsak = adjustHLTime(highLatitudeMethod, imsak, sunrise, DEFAULT_TIME_IMSAK.value, nightTime, true);
+                fajr = adjustHLTime(highLatitudeMethod, fajr, sunrise, method.getFajr().value, nightTime, true);
+                isha = adjustHLTime(highLatitudeMethod, isha, sunset, method.getIsha().value, nightTime);
+                maghrib = adjustHLTime(highLatitudeMethod, maghrib, sunset, method.getMaghrib().value, nightTime);
             }
 
             if (DEFAULT_TIME_IMSAK.isMinutes) {
@@ -170,7 +170,7 @@ public class PrayTimes {
     }
 
     // adjust a time for higher latitudes
-    private static double adjustHLTime(CalculationMethod.HighLatMethods highLatMethod,
+    private static double adjustHLTime(HighLatitudeMethod highLatMethod,
                                        double time, double bbase, double angle,
                                        double night, boolean ccw) {
         double portion = nightPortion(highLatMethod, angle, night);
@@ -181,18 +181,18 @@ public class PrayTimes {
         return time;
     }
 
-    private static double adjustHLTime(CalculationMethod.HighLatMethods highLatMethod,
+    private static double adjustHLTime(HighLatitudeMethod highLatMethod,
                                        double time, double bbase, double angle, double night) {
         return adjustHLTime(highLatMethod, time, bbase, angle, night, false);
     }
 
     // the night portion used for adjusting times in higher latitudes
-    private static double nightPortion(CalculationMethod.HighLatMethods highLatMethod, double angle, double night) {
+    private static double nightPortion(HighLatitudeMethod highLatMethod, double angle, double night) {
         double portion = 1d / 2d;
-        if (highLatMethod == CalculationMethod.HighLatMethods.AngleBased) {
+        if (highLatMethod == HighLatitudeMethod.AngleBased) {
             portion = 1d / 60d * angle;
         }
-        if (highLatMethod == CalculationMethod.HighLatMethods.OneSeventh) {
+        if (highLatMethod == HighLatitudeMethod.OneSeventh) {
             portion = 1d / 7d;
         }
         return portion * night;

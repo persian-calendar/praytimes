@@ -62,24 +62,4 @@ public enum CalculationMethod {
         Jafari // Mid Sunset to Fajr
     }
 
-    // Asr Juristic Methods
-    public enum AsrJuristics {
-        Standard(1d), // Shafi`i, Maliki, Ja`fari, Hanbali
-        Hanafi(2d); // Hanafi
-
-        // asr shadow factor
-        final double asrFactor;
-
-        AsrJuristics(double factor) {
-            asrFactor = factor;
-        }
-    }
-
-    // Adjust Methods for Higher Latitudes
-    public enum HighLatMethods {
-        NightMiddle, // middle of night
-        AngleBased, // angle/60th of night
-        OneSeventh, // 1/7th of night
-        None // No adjustment
-    }
 }
