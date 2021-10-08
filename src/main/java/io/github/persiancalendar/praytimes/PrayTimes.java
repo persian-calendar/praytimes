@@ -37,13 +37,13 @@ public class PrayTimes {
 
         // compute prayer times at given julian date
         double imsak = sunAngleTime(jdate, DEFAULT_TIME_IMSAK, DEFAULT_IMSAK, true, coordinates);
-        double fajr = sunAngleTime(jdate, method.getFajr(), DEFAULT_FAJR, true, coordinates);
+        double fajr = sunAngleTime(jdate, method.fajr, DEFAULT_FAJR, true, coordinates);
         double sunrise = sunAngleTime(jdate, riseSetAngle(coordinates), DEFAULT_SUNRISE, true, coordinates);
         double dhuhr = midDay(jdate, DEFAULT_DHUHR);
         double asr = asrTime(jdate, asrMethod.asrFactor, DEFAULT_ASR, coordinates);
         double sunset = sunAngleTime(jdate, riseSetAngle(coordinates), DEFAULT_SUNSET, coordinates);
-        double maghrib = sunAngleTime(jdate, method.getMaghrib(), DEFAULT_MAGHRIB, coordinates);
-        double isha = sunAngleTime(jdate, method.getIsha(), DEFAULT_ISHA, coordinates);
+        double maghrib = sunAngleTime(jdate, method.maghrib, DEFAULT_MAGHRIB, coordinates);
+        double isha = sunAngleTime(jdate, method.isha, DEFAULT_ISHA, coordinates);
 
         // Adjust times
         {
@@ -63,25 +63,25 @@ public class PrayTimes {
                 double nightTime = timeDiff(sunset, sunrise);
 
                 imsak = adjustHLTime(highLatitudeMethod, imsak, sunrise, DEFAULT_TIME_IMSAK.value, nightTime, true);
-                fajr = adjustHLTime(highLatitudeMethod, fajr, sunrise, method.getFajr().value, nightTime, true);
-                isha = adjustHLTime(highLatitudeMethod, isha, sunset, method.getIsha().value, nightTime);
-                maghrib = adjustHLTime(highLatitudeMethod, maghrib, sunset, method.getMaghrib().value, nightTime);
+                fajr = adjustHLTime(highLatitudeMethod, fajr, sunrise, method.fajr.value, nightTime, true);
+                isha = adjustHLTime(highLatitudeMethod, isha, sunset, method.isha.value, nightTime);
+                maghrib = adjustHLTime(highLatitudeMethod, maghrib, sunset, method.maghrib.value, nightTime);
             }
 
             if (DEFAULT_TIME_IMSAK.isMinutes) {
                 imsak = fajr - DEFAULT_TIME_IMSAK.value / 60.;
             }
-            if (method.getMaghrib().isMinutes) {
-                maghrib = sunset + method.getMaghrib().value / 60.;
+            if (method.maghrib.isMinutes) {
+                maghrib = sunset + method.maghrib.value / 60.;
             }
-            if (method.getIsha().isMinutes) {
-                isha = maghrib + method.getIsha().value / 60.;
+            if (method.isha.isMinutes) {
+                isha = maghrib + method.isha.value / 60.;
             }
             dhuhr = dhuhr + DEFAULT_TIME_DHUHR.value / 60.;
         }
 
         // add midnight time
-        double midnight = method.getMidnight() == CalculationMethod.MidnightType.Jafari
+        double midnight = method.midnight == CalculationMethod.MidnightType.Jafari
                 ? sunset + timeDiff(sunset, fajr) / 2
                 : sunset + timeDiff(sunset, sunrise) / 2;
 

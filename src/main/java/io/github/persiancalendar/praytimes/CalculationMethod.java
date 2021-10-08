@@ -16,10 +16,10 @@ public enum CalculationMethod {
     // Shia Ithna-Ashari, Leva Institute, Qum
     Jafari(deg(16), deg(14), deg(4), MidnightType.Jafari);
 
-    private final MinuteOrAngleDouble fajr;
-    private final MinuteOrAngleDouble isha;
-    private final MinuteOrAngleDouble maghrib;
-    private final MidnightType midnight;
+    final MinuteOrAngleDouble fajr;
+    final MinuteOrAngleDouble isha;
+    final MinuteOrAngleDouble maghrib;
+    final MidnightType midnight;
 
     CalculationMethod(MinuteOrAngleDouble fajr, MinuteOrAngleDouble isha, MinuteOrAngleDouble maghrib,
                       MidnightType midnight) {
@@ -35,22 +35,6 @@ public enum CalculationMethod {
 
     CalculationMethod(MinuteOrAngleDouble fajr, MinuteOrAngleDouble isha) {
         this(fajr, isha, null);
-    }
-
-    MinuteOrAngleDouble getFajr() {
-        return fajr;
-    }
-
-    MinuteOrAngleDouble getIsha() {
-        return isha;
-    }
-
-    MinuteOrAngleDouble getMaghrib() {
-        return maghrib;
-    }
-
-    MidnightType getMidnight() {
-        return midnight;
     }
 
     // Midnight Mode
