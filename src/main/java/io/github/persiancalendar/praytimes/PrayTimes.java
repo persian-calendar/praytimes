@@ -167,7 +167,7 @@ public class PrayTimes {
     private static CalculationMethod.MinuteOrAngleDouble riseSetAngle(Coordinates coordinates) {
         // var earthRad = 6371009; // in meters
         // var angle = DMath.arccos(earthRad/(earthRad+ elv));
-        double angle = 0.0347 * Math.sqrt(coordinates.elevation); // an approximation
+        double angle = 0.0347 * Math.sqrt(Math.max(coordinates.elevation, 0)); // an approximation
         return deg(0.833 + angle);
     }
 

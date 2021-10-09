@@ -52,15 +52,17 @@ class MainTests {
         prayTimes = PrayTimes(
             CalculationMethod.Makkah,
             createCalendar("GMT-4:00", 2018, 9, 5),
-            Coordinates(43.0, -80.0, 0.0),
+            Coordinates(43.0, -80.0, -15.0),
             AsrMethod.Standard
         )
         assertEquals(Clock(5, 6).toMinutes(), prayTimes.fajr.toRoundedClock().toMinutes())
         assertEquals(Clock(6, 49).toMinutes(), prayTimes.sunrise.toRoundedClock().toMinutes())
         assertEquals(Clock(13, 19).toMinutes(), prayTimes.dhuhr.toRoundedClock().toMinutes())
         assertEquals(Clock(16, 57).toMinutes(), prayTimes.asr.toRoundedClock().toMinutes())
+        assertEquals(Clock(19, 48).toMinutes(), prayTimes.sunset.toRoundedClock().toMinutes())
         assertEquals(Clock(19, 48).toMinutes(), prayTimes.maghrib.toRoundedClock().toMinutes())
         assertEquals(Clock(21, 18).toMinutes(), prayTimes.isha.toRoundedClock().toMinutes())
+        assertEquals(Clock(1, 18).toMinutes(), prayTimes.midnight.toRoundedClock().toMinutes())
 
         prayTimes = PrayTimes(
             CalculationMethod.Karachi,
