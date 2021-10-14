@@ -1,6 +1,5 @@
 package io.github.persiancalendar.praytimes;
 
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import static io.github.persiancalendar.praytimes.CalculationMethod.deg;
@@ -22,9 +21,9 @@ public class PrayTimes {
 
     public PrayTimes(CalculationMethod method, GregorianCalendar calendar, Coordinates coordinates,
                      AsrMethod asrMethod, HighLatitudesMethod highLatitudesMethod) {
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH) + 1;
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int year = calendar.get(GregorianCalendar.YEAR);
+        int month = calendar.get(GregorianCalendar.MONTH) + 1;
+        int day = calendar.get(GregorianCalendar.DAY_OF_MONTH);
         double jdate = julian(year, month, day) - coordinates.longitude / (15. * 24.);
 
         // compute prayer times at given julian date
