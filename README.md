@@ -33,7 +33,7 @@ allprojects {
 Add the dependency
 ```
 dependencies {
-        implementation 'com.github.persian-calendar:praytimes:2.1.1'
+        implementation 'com.github.persian-calendar:praytimes:2.1.2'
 }
   ```
   
