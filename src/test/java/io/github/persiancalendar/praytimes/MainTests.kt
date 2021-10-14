@@ -67,8 +67,7 @@ class MainTests {
         prayTimes = PrayTimes(
             CalculationMethod.Karachi,
             createCalendar("GMT-4:00", 2018, 9, 5),
-            Coordinates(43.0, -80.0, 0.0),
-            AsrMethod.Standard
+            Coordinates(43.0, -80.0, 0.0)
         )
         assertEquals(Clock(5, 9).toMinutes(), prayTimes.fajr.toRoundedClock().toMinutes())
         assertEquals(Clock(6, 49).toMinutes(), prayTimes.sunrise.toRoundedClock().toMinutes())

@@ -11,14 +11,17 @@ public class PrayTimes {
     // A real number [0-24) of a day, up to client to turn it to hours and minutes, and either show seconds or round it
     public final double imsak, fajr, sunrise, dhuhr, asr, sunset, maghrib, isha, midnight;
 
+    public PrayTimes(CalculationMethod method, GregorianCalendar calendar, Coordinates coordinates) {
+        this(method, calendar, coordinates, AsrMethod.Standard);
+    }
+
     public PrayTimes(CalculationMethod method, GregorianCalendar calendar, Coordinates coordinates,
                      AsrMethod asrMethod) {
         this(method, calendar, coordinates, asrMethod, HighLatitudesMethod.NightMiddle);
     }
 
     public PrayTimes(CalculationMethod method, GregorianCalendar calendar, Coordinates coordinates,
-                     AsrMethod asrMethod,
-                     HighLatitudesMethod highLatitudesMethod) {
+                     AsrMethod asrMethod, HighLatitudesMethod highLatitudesMethod) {
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH) + 1;
         int day = calendar.get(Calendar.DAY_OF_MONTH);
