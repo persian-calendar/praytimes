@@ -8,18 +8,6 @@ import static io.github.persiancalendar.praytimes.CalculationMethod.min;
 
 public class PrayTimes {
 
-    // default times
-    private static final double DEFAULT_IMSAK = 5. / 24;
-    private static final double DEFAULT_FAJR = 5. / 24;
-    private static final double DEFAULT_SUNRISE = 6. / 24;
-    private static final double DEFAULT_DHUHR = 12. / 24;
-    private static final double DEFAULT_ASR = 13. / 24;
-    private static final double DEFAULT_SUNSET = 18. / 24;
-    private static final double DEFAULT_MAGHRIB = 18. / 24;
-    private static final double DEFAULT_ISHA = 18. / 24;
-    private static final CalculationMethod.MinuteOrAngleDouble DEFAULT_TIME_IMSAK = min(10);
-    private static final CalculationMethod.MinuteOrAngleDouble DEFAULT_TIME_DHUHR = min(0);
-
     // A real number [0-24) of a day, up to client to turn it to hours and minutes, and either show seconds or round it
     public final double imsak, fajr, sunrise, dhuhr, asr, sunset, maghrib, isha, midnight;
 
@@ -96,6 +84,18 @@ public class PrayTimes {
         this.isha = fixHour(isha);
         this.midnight = fixHour(midnight);
     }
+
+    // default times
+    private static final double DEFAULT_IMSAK = 5. / 24;
+    private static final double DEFAULT_FAJR = 5. / 24;
+    private static final double DEFAULT_SUNRISE = 6. / 24;
+    private static final double DEFAULT_DHUHR = 12. / 24;
+    private static final double DEFAULT_ASR = 13. / 24;
+    private static final double DEFAULT_SUNSET = 18. / 24;
+    private static final double DEFAULT_MAGHRIB = 18. / 24;
+    private static final double DEFAULT_ISHA = 18. / 24;
+    private static final CalculationMethod.MinuteOrAngleDouble DEFAULT_TIME_IMSAK = min(10);
+    private static final CalculationMethod.MinuteOrAngleDouble DEFAULT_TIME_DHUHR = min(0);
 
     // compute mid-day time
     private static double midDay(double jdate, double time) {
