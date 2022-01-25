@@ -110,11 +110,11 @@ public class PrayTimes {
         // TODO: the below assert should be considered
         // if (angle.isMinute()) throw new IllegalArgumentException("angle argument must be degree, not minute!");
         double decl = sunPosition(jdate + time).declination;
-        double noon = dtr(midDay(jdate, time));
-        double t = Math.acos((-Math.sin(dtr(angle.value)) - Math.sin(decl)
-                * Math.sin(dtr(coordinates.latitude)))
-                / (Math.cos(decl) * Math.cos(dtr(coordinates.latitude)))) / 15.;
-        return rtd(noon + (ccw ? -t : t));
+        double noon = Math.toRadians(midDay(jdate, time));
+        double t = Math.acos((-Math.sin(Math.toRadians(angle.value)) - Math.sin(decl)
+                * Math.sin(Math.toRadians(coordinates.latitude)))
+                / (Math.cos(decl) * Math.cos(Math.toRadians(coordinates.latitude)))) / 15.;
+        return Math.toDegrees(noon + (ccw ? -t : t));
     }
 
     private static double sunAngleTime(double jdate, CalculationMethod.MinuteOrAngleDouble angle, double time, Coordinates coordinates) {
@@ -124,8 +124,8 @@ public class PrayTimes {
     // compute asr time
     private static double asrTime(double jdate, double factor, double time, Coordinates coordinates) {
         double decl = sunPosition(jdate + time).declination;
-        double angle = -Math.atan(1 / (factor + Math.tan(Math.abs(dtr(coordinates.latitude) - decl))));
-        return sunAngleTime(jdate, deg(rtd(angle)), time, coordinates);
+        double angle = -Math.atan(1 / (factor + Math.tan(Math.abs(Math.toRadians(coordinates.latitude) - decl))));
+        return sunAngleTime(jdate, deg(Math.toDegrees(angle)), time, coordinates);
     }
 
     // compute declination angle of sun and equation of time
@@ -134,7 +134,7 @@ public class PrayTimes {
         double D = jd - 2451545d;
         double g = (357.529 + 0.98560028 * D) % 360;
         double q = (280.459 + 0.98564736 * D) % 360;
-        double L = (q + 1.915 * Math.sin(dtr(g)) + 0.020 * Math.sin(dtr(2d * g))) % 360;
+        double L = (q + 1.915 * Math.sin(Math.toRadians(g)) + 0.020 * Math.sin(Math.toRadians(2d * g))) % 360;
 
         // weird!
         // double R = 1.00014 - 0.01671 * Math.cos(dtr(g)) - 0.00014 *
@@ -142,9 +142,11 @@ public class PrayTimes {
 
         double e = 23.439 - 0.00000036 * D;
 
-        double RA = rtd(Math.atan2(Math.cos(dtr(e)) * Math.sin(dtr(L)), Math.cos(dtr(L)))) / 15d;
+        double RA = Math.toDegrees(
+                Math.atan2(Math.cos(Math.toRadians(e)) * Math.sin(Math.toRadians(L)), Math.cos(Math.toRadians(L)))
+        ) / 15d;
         double eqt = q / 15d - fixHour(RA);
-        double decl = Math.asin(Math.sin(dtr(e)) * Math.sin(dtr(L)));
+        double decl = Math.asin(Math.sin(Math.toRadians(e)) * Math.sin(Math.toRadians(L)));
 
         return new DeclEqt(decl, eqt);
     }
@@ -205,18 +207,6 @@ public class PrayTimes {
     // compute the difference between two times
     private static double timeDiff(double time1, double time2) {
         return fixHour(time2 - time1);
-    }
-
-    //
-    // Misc Functions
-    //
-    //
-    static double dtr(double d) {
-        return (d * Math.PI) / 180d;
-    }
-
-    static double rtd(double r) {
-        return (r * 180d) / Math.PI;
     }
 
     static double fixHour(double a) {
