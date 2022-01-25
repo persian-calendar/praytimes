@@ -105,7 +105,7 @@ class MainTests {
         prayTimes = PrayTimes(
             CalculationMethod.Tehran,
             createCalendar("GMT+8:00", 2019, 6, 9),
-            Coordinates(3.147778, 101.695278, 0.0),
+            Coordinates(3.147778, 101.695278, .0),
             AsrMethod.Standard
         )
         assertEquals(Clock(5, 49).toMinutes(), prayTimes.fajr.toRoundedClock().toMinutes())
@@ -124,7 +124,7 @@ class MainTests {
     }
 
     private fun Double.toRoundedClock(): Clock {
-        val value = (this + 0.5 / 60) % 24 // add 0.5 minutes to round
+        val value = (this + .5 / 60) % 24 // add 0.5 minutes to round
         val hours = value.toInt()
         val minutes = ((value - hours) * 60.0).toInt()
         return Clock(hours, minutes)

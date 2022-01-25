@@ -132,15 +132,15 @@ public class PrayTimes {
     // Ref: http://aa.usno.navy.mil/faq/docs/SunApprox.php
     private static DeclEqt sunPosition(double jd) {
         double D = jd - 2451545d;
-        double g = (357.529 + 0.98560028 * D) % 360;
-        double q = (280.459 + 0.98564736 * D) % 360;
-        double L = (q + 1.915 * Math.sin(Math.toRadians(g)) + 0.020 * Math.sin(Math.toRadians(2d * g))) % 360;
+        double g = (357.529 + .98560028 * D) % 360;
+        double q = (280.459 + .98564736 * D) % 360;
+        double L = (q + 1.915 * Math.sin(Math.toRadians(g)) + .020 * Math.sin(Math.toRadians(2d * g))) % 360;
 
         // weird!
         // double R = 1.00014 - 0.01671 * Math.cos(dtr(g)) - 0.00014 *
         // Math.cos(dtr(2d * g));
 
-        double e = 23.439 - 0.00000036 * D;
+        double e = 23.439 - .00000036 * D;
 
         double RA = Math.toDegrees(
                 Math.atan2(Math.cos(Math.toRadians(e)) * Math.sin(Math.toRadians(L)), Math.cos(Math.toRadians(L)))
@@ -171,8 +171,8 @@ public class PrayTimes {
     private static CalculationMethod.MinuteOrAngleDouble riseSetAngle(Coordinates coordinates) {
         // var earthRad = 6371009; // in meters
         // var angle = DMath.arccos(earthRad/(earthRad+ elv));
-        double angle = 0.0347 * Math.sqrt(Math.max(coordinates.elevation, 0)); // an approximation
-        return deg(0.833 + angle);
+        double angle = .0347 * Math.sqrt(Math.max(coordinates.elevation, 0)); // an approximation
+        return deg(.833 + angle);
     }
 
     // adjust a time for higher latitudes
