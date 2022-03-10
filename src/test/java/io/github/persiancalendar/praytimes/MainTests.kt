@@ -1,7 +1,8 @@
 package io.github.persiancalendar.praytimes
 
-import org.junit.Assert.*
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 import java.util.*
 
 class MainTests {
@@ -116,7 +117,7 @@ class MainTests {
         assertEquals(Clock(20, 19).toMinutes(), prayTimes.isha.toRoundedClock().toMinutes())
 
         assertTrue(CalculationMethod.Tehran.isJafari)
-        assertFalse(CalculationMethod.Karachi.isJafari)
+        assertTrue(!CalculationMethod.Karachi.isJafari)
     }
 
     private data class Clock(val hours: Int, val minutes: Int) {

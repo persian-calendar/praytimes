@@ -12,11 +12,17 @@ repositories {
 }
 
 dependencies {
-    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.8.2")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.2")
     testImplementation(kotlin("stdlib-jdk8"))
 }
 
-configure<JavaPluginConvention> {
+tasks.test {
+    useJUnitPlatform()
+}
+
+configure<JavaPluginExtension> {
     sourceCompatibility = JavaVersion.VERSION_1_8
 }
 
