@@ -16,25 +16,25 @@ PrayTimes, a Java port of [PrayTimes.js](http://praytimes.org/) (LGPLv3)
 
   This program is distributed in the hope that it will
   be useful, but WITHOUT ANY WARRANTY.
-  ```
+```
   
 # Usage
-### Gradle
 
-Add it in your root build.gradle at the end of repositories:
-```groovy
+Add this in your root build.gradle at the end of repositories section:
+```kotlin
 allprojects {
-	repositories {
-		...
-		maven { url 'https://jitpack.io' }
-	}
+    repositories {
+        ...
+        maven("https://jitpack.io")
+    }
 }
 ```
-Add the dependency
-```
+
+Now actually add the dependency:
+```kotlin
 dependencies {
-        implementation 'com.github.persian-calendar:praytimes:2.1.2'
+    implementation("com.github.persian-calendar:praytimes:2.1.2")
 }
-  ```
-  
-for other build tools refer to [this](https://jitpack.io/#persian-calendar/praytimes) documentation.
+```
+
+For other build tools support have a look at [this](https://jitpack.io/#persian-calendar/praytimes).
