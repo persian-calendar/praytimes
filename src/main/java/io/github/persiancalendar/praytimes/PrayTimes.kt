@@ -1,16 +1,10 @@
 package io.github.persiancalendar.praytimes
 
-import io.github.persiancalendar.praytimes.CalculationMethod.MinuteOrAngleDouble.Companion.min
-import io.github.persiancalendar.praytimes.CalculationMethod.MinuteOrAngleDouble.Companion.deg
-import kotlin.jvm.JvmOverloads
-import io.github.persiancalendar.praytimes.CalculationMethod
-import java.util.GregorianCalendar
-import io.github.persiancalendar.praytimes.Coordinates
-import io.github.persiancalendar.praytimes.AsrMethod
-import io.github.persiancalendar.praytimes.HighLatitudesMethod
-import io.github.persiancalendar.praytimes.PrayTimes
 import io.github.persiancalendar.praytimes.CalculationMethod.MinuteOrAngleDouble
-import io.github.persiancalendar.praytimes.PrayTimes.DeclEqt
+import io.github.persiancalendar.praytimes.CalculationMethod.MinuteOrAngleDouble.Companion.deg
+import io.github.persiancalendar.praytimes.CalculationMethod.MinuteOrAngleDouble.Companion.min
+import java.util.*
+import kotlin.math.*
 
 class PrayTimes @JvmOverloads constructor(
     method: CalculationMethod,
@@ -96,7 +90,7 @@ class PrayTimes @JvmOverloads constructor(
             if (method.isha.isMinutes) {
                 isha = maghrib + method.isha.value / 60.0
             }
-            dhuhr = dhuhr + DEFAULT_TIME_DHUHR.value / 60.0
+            dhuhr += DEFAULT_TIME_DHUHR.value / 60.0
         }
 
         // add midnight time
@@ -116,7 +110,7 @@ class PrayTimes @JvmOverloads constructor(
         this.midnight = fixHour(midnight)
     }
 
-    private class DeclEqt internal constructor(val declination: Double, val equation: Double)
+    private class DeclEqt(val declination: Double, val equation: Double)
     companion object {
         // default times
         private const val DEFAULT_IMSAK = 5.0 / 24
@@ -148,10 +142,10 @@ class PrayTimes @JvmOverloads constructor(
             // if (angle.isMinute()) throw new IllegalArgumentException("angle argument must be degree, not minute!");
             val decl = sunPosition(jdate + time).declination
             val noon = Math.toRadians(midDay(jdate, time))
-            val t = Math.acos(
-                (-Math.sin(Math.toRadians(angle.value)) - Math.sin(decl)
-                        * Math.sin(Math.toRadians(coordinates.latitude)))
-                        / (Math.cos(decl) * Math.cos(Math.toRadians(coordinates.latitude)))
+            val t = acos(
+                (-sin(Math.toRadians(angle.value)) - sin(decl)
+                        * sin(Math.toRadians(coordinates.latitude)))
+                        / (cos(decl) * cos(Math.toRadians(coordinates.latitude)))
             ) / 15.0
             return Math.toDegrees(noon + if (ccw) -t else t)
         }
@@ -174,7 +168,7 @@ class PrayTimes @JvmOverloads constructor(
         ): Double {
             val decl = sunPosition(jdate + time).declination
             val angle =
-                -Math.atan(1 / (factor + Math.tan(Math.abs(Math.toRadians(coordinates.latitude) - decl))))
+                -atan(1 / (factor + tan(abs(Math.toRadians(coordinates.latitude) - decl))))
             return sunAngleTime(jdate, deg(Math.toDegrees(angle)), time, coordinates)
         }
 
@@ -192,13 +186,13 @@ class PrayTimes @JvmOverloads constructor(
             // Math.cos(dtr(2d * g));
             val e = 23.439 - .00000036 * D
             val RA = Math.toDegrees(
-                Math.atan2(
-                    Math.cos(Math.toRadians(e)) * Math.sin(Math.toRadians(L)),
-                    Math.cos(Math.toRadians(L))
+                atan2(
+                    cos(Math.toRadians(e)) * sin(Math.toRadians(L)),
+                    cos(Math.toRadians(L))
                 )
             ) / 15.0
             val eqt = q / 15.0 - fixHour(RA)
-            val decl = Math.asin(Math.sin(Math.toRadians(e)) * Math.sin(Math.toRadians(L)))
+            val decl = asin(sin(Math.toRadians(e)) * sin(Math.toRadians(L)))
             return DeclEqt(decl, eqt)
         }
 
@@ -211,9 +205,9 @@ class PrayTimes @JvmOverloads constructor(
                 year -= 1
                 month += 12
             }
-            val A = Math.floor(year.toDouble() / 100)
-            val B = 2 - A + Math.floor(A / 4)
-            return Math.floor(365.25 * (year + 4716)) + Math.floor(30.6001 * (month + 1)) + day + B - 1524.5
+            val A = floor(year.toDouble() / 100)
+            val B = 2 - A + floor(A / 4)
+            return floor(365.25 * (year + 4716)) + floor(30.6001 * (month + 1)) + day + B - 1524.5
         }
 
         // Section 2!! (Compute Prayer Time in JS code)
@@ -222,7 +216,7 @@ class PrayTimes @JvmOverloads constructor(
         private fun riseSetAngle(coordinates: Coordinates): MinuteOrAngleDouble {
             // var earthRad = 6371009; // in meters
             // var angle = DMath.arccos(earthRad/(earthRad+ elv));
-            val angle = .0347 * Math.sqrt(Math.max(coordinates.elevation, 0.0)) // an approximation
+            val angle = .0347 * sqrt(coordinates.elevation.coerceAtLeast(0.0)) // an approximation
             return deg(.833 + angle)
         }
 
