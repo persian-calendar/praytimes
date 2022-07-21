@@ -1,9 +1,9 @@
 package io.github.persiancalendar.praytimes;
 
-import java.util.GregorianCalendar;
+import static io.github.persiancalendar.praytimes.CalculationMethod.MinuteOrAngleDouble.deg;
+import static io.github.persiancalendar.praytimes.CalculationMethod.MinuteOrAngleDouble.min;
 
-import static io.github.persiancalendar.praytimes.CalculationMethod.deg;
-import static io.github.persiancalendar.praytimes.CalculationMethod.min;
+import java.util.GregorianCalendar;
 
 public class PrayTimes {
 
