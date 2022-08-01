@@ -138,13 +138,13 @@ class PrayTimes @JvmOverloads constructor(
             // TODO: the below assert should be considered
             // if (angle.isMinute()) throw new IllegalArgumentException("angle argument must be degree, not minute!");
             val decl = sunPosition(jdate + time).declination
-            val noon = Math.toRadians(midDay(jdate, time))
+            val noon = toRadians(midDay(jdate, time))
             val t = acos(
-                (-sin(Math.toRadians(angle.value)) - sin(decl)
-                        * sin(Math.toRadians(coordinates.latitude)))
-                        / (cos(decl) * cos(Math.toRadians(coordinates.latitude)))
+                (-sin(toRadians(angle.value)) - sin(decl)
+                        * sin(toRadians(coordinates.latitude)))
+                        / (cos(decl) * cos(toRadians(coordinates.latitude)))
             ) / 15.0
-            return Math.toDegrees(noon + if (ccw) -t else t)
+            return toDegrees(noon + if (ccw) -t else t)
         }
 
         private fun sunAngleTime(
@@ -164,9 +164,8 @@ class PrayTimes @JvmOverloads constructor(
             coordinates: Coordinates
         ): Double {
             val decl = sunPosition(jdate + time).declination
-            val angle =
-                -atan(1 / (factor + tan(abs(Math.toRadians(coordinates.latitude) - decl))))
-            return sunAngleTime(jdate, deg(Math.toDegrees(angle)), time, coordinates)
+            val angle = -atan(1 / (factor + tan(abs(toRadians(coordinates.latitude) - decl))))
+            return sunAngleTime(jdate, deg(toDegrees(angle)), time, coordinates)
         }
 
         // compute declination angle of sun and equation of time
@@ -175,20 +174,20 @@ class PrayTimes @JvmOverloads constructor(
             val D = jd - 2451545.0
             val g = (357.529 + .98560028 * D) % 360
             val q = (280.459 + .98564736 * D) % 360
-            val L = (q + 1.915 * sin(Math.toRadians(g)) + .020 * sin(Math.toRadians(2.0 * g))) % 360
+            val L = (q + 1.915 * sin(toRadians(g)) + .020 * sin(toRadians(2.0 * g))) % 360
 
             // weird!
             // double R = 1.00014 - 0.01671 * Math.cos(dtr(g)) - 0.00014 *
             // Math.cos(dtr(2d * g));
             val e = 23.439 - .00000036 * D
-            val RA = Math.toDegrees(
+            val RA = toDegrees(
                 atan2(
-                    cos(Math.toRadians(e)) * sin(Math.toRadians(L)),
-                    cos(Math.toRadians(L))
+                    cos(toRadians(e)) * sin(toRadians(L)),
+                    cos(toRadians(L))
                 )
             ) / 15.0
             val eqt = q / 15.0 - fixHour(RA)
-            val decl = asin(sin(Math.toRadians(e)) * sin(Math.toRadians(L)))
+            val decl = asin(sin(toRadians(e)) * sin(toRadians(L)))
             return DeclEqt(decl, eqt)
         }
 
@@ -255,5 +254,9 @@ class PrayTimes @JvmOverloads constructor(
             val result = a % 24
             return if (result < 0) 24 + result else result
         }
+
+        private fun toRadians(angdeg: Double) = angdeg * PI / 180
+        private fun toDegrees(angrad: Double) = angrad * 180 / PI
+
     }
 }
