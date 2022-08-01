@@ -1,8 +1,5 @@
 package io.github.persiancalendar.praytimes
 
-import io.github.persiancalendar.praytimes.CalculationMethod.MinuteOrAngleDouble
-import io.github.persiancalendar.praytimes.CalculationMethod.MinuteOrAngleDouble.Companion.deg
-import io.github.persiancalendar.praytimes.CalculationMethod.MinuteOrAngleDouble.Companion.min
 import java.util.*
 import kotlin.math.*
 
@@ -13,7 +10,7 @@ class PrayTimes @JvmOverloads constructor(
     asrMethod: AsrMethod = AsrMethod.Standard,
     highLatitudesMethod: HighLatitudesMethod = HighLatitudesMethod.NightMiddle
 ) {
-    // A real number [0-24) of a day, up to client to turn it to hours and minutes, and either show seconds or round it
+    // A real number [0-24] of a day, up to client to turn it to hours and minutes, and either show seconds or round it
     val imsak: Double
     val fajr: Double
     val sunrise: Double
@@ -178,8 +175,7 @@ class PrayTimes @JvmOverloads constructor(
             val D = jd - 2451545.0
             val g = (357.529 + .98560028 * D) % 360
             val q = (280.459 + .98564736 * D) % 360
-            val L =
-                (q + 1.915 * Math.sin(Math.toRadians(g)) + .020 * Math.sin(Math.toRadians(2.0 * g))) % 360
+            val L = (q + 1.915 * sin(Math.toRadians(g)) + .020 * sin(Math.toRadians(2.0 * g))) % 360
 
             // weird!
             // double R = 1.00014 - 0.01671 * Math.cos(dtr(g)) - 0.00014 *

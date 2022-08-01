@@ -1,8 +1,5 @@
 package io.github.persiancalendar.praytimes
 
-import io.github.persiancalendar.praytimes.CalculationMethod.MinuteOrAngleDouble.Companion.deg
-import io.github.persiancalendar.praytimes.CalculationMethod.MinuteOrAngleDouble.Companion.min
-
 enum class CalculationMethod @JvmOverloads constructor(
     @JvmField
     val fajr: MinuteOrAngleDouble,
@@ -39,21 +36,4 @@ enum class CalculationMethod @JvmOverloads constructor(
         Jafari // Mid Sunset to Fajr
     }
 
-    class MinuteOrAngleDouble(@JvmField val value: Double, @JvmField val isMinutes: Boolean) {
-        companion object {
-            fun deg(value: Int): MinuteOrAngleDouble {
-                return deg(value.toDouble())
-            }
-
-            @JvmStatic
-            fun min(value: Int): MinuteOrAngleDouble {
-                return MinuteOrAngleDouble(value.toDouble(), true)
-            }
-
-            @JvmStatic
-            fun deg(value: Double): MinuteOrAngleDouble {
-                return MinuteOrAngleDouble(value, false)
-            }
-        }
-    }
 }
