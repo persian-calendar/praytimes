@@ -5,12 +5,11 @@ import java.util.*
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
-class MainTests {
-
+class Tests {
     @Test
     fun `pray times calculations correctness`() {
         // http://praytimes.org/code/v2/js/examples/monthly.htm
-        var prayTimes = PrayTimes(
+        var prayTimes = prayTimes(
             CalculationMethod.MWL,
             createCalendar("GMT-4:00", 2018, 9, 5),
             Coordinates(43.0, -80.0, 0.0),
@@ -24,7 +23,7 @@ class MainTests {
         assertEquals(Clock(19, 48).toMinutes(), prayTimes.maghrib.toRoundedClock().toMinutes())
         assertEquals(Clock(21, 21).toMinutes(), prayTimes.isha.toRoundedClock().toMinutes())
 
-        prayTimes = PrayTimes(
+        prayTimes = prayTimes(
             CalculationMethod.ISNA,
             createCalendar("GMT-4:00", 2018, 9, 5),
             Coordinates(43.0, -80.0, 0.0),
@@ -37,7 +36,7 @@ class MainTests {
         assertEquals(Clock(19, 48).toMinutes(), prayTimes.maghrib.toRoundedClock().toMinutes())
         assertEquals(Clock(21, 9).toMinutes(), prayTimes.isha.toRoundedClock().toMinutes())
 
-        prayTimes = PrayTimes(
+        prayTimes = prayTimes(
             CalculationMethod.Egypt,
             createCalendar("GMT-4:00", 2018, 9, 5),
             Coordinates(43.0, -80.0, 0.0),
@@ -50,7 +49,7 @@ class MainTests {
         assertEquals(Clock(19, 48).toMinutes(), prayTimes.maghrib.toRoundedClock().toMinutes())
         assertEquals(Clock(21, 24).toMinutes(), prayTimes.isha.toRoundedClock().toMinutes())
 
-        prayTimes = PrayTimes(
+        prayTimes = prayTimes(
             CalculationMethod.Makkah,
             createCalendar("GMT-4:00", 2018, 9, 5),
             Coordinates(43.0, -80.0, -15.0),
@@ -65,7 +64,7 @@ class MainTests {
         assertEquals(Clock(21, 18).toMinutes(), prayTimes.isha.toRoundedClock().toMinutes())
         assertEquals(Clock(1, 18).toMinutes(), prayTimes.midnight.toRoundedClock().toMinutes())
 
-        prayTimes = PrayTimes(
+        prayTimes = prayTimes(
             CalculationMethod.Karachi,
             createCalendar("GMT-4:00", 2018, 9, 5),
             Coordinates(43.0, -80.0, 0.0)
@@ -77,7 +76,7 @@ class MainTests {
         assertEquals(Clock(19, 48).toMinutes(), prayTimes.maghrib.toRoundedClock().toMinutes())
         assertEquals(Clock(21, 27).toMinutes(), prayTimes.isha.toRoundedClock().toMinutes())
 
-        prayTimes = PrayTimes(
+        prayTimes = prayTimes(
             CalculationMethod.Jafari,
             createCalendar("GMT-4:00", 2018, 9, 5),
             Coordinates(43.0, -80.0, 0.0),
@@ -90,7 +89,7 @@ class MainTests {
         assertEquals(Clock(20, 5).toMinutes(), prayTimes.maghrib.toRoundedClock().toMinutes())
         assertEquals(Clock(21, 3).toMinutes(), prayTimes.isha.toRoundedClock().toMinutes())
 
-        prayTimes = PrayTimes(
+        prayTimes = prayTimes(
             CalculationMethod.Tehran,
             createCalendar("GMT-4:00", 2018, 9, 5),
             Coordinates(43.0, -80.0, 0.0),
@@ -103,7 +102,7 @@ class MainTests {
         assertEquals(Clock(20, 8).toMinutes(), prayTimes.maghrib.toRoundedClock().toMinutes())
         assertEquals(Clock(21, 3).toMinutes(), prayTimes.isha.toRoundedClock().toMinutes())
 
-        prayTimes = PrayTimes(
+        prayTimes = prayTimes(
             CalculationMethod.Tehran,
             createCalendar("GMT+8:00", 2019, 6, 9),
             Coordinates(3.147778, 101.695278, .0),
@@ -131,8 +130,9 @@ class MainTests {
         return Clock(hours, minutes)
     }
 
-    private fun createCalendar(timeZone: String, year: Int, month: Int, dayOfMonth: Int): GregorianCalendar =
-        GregorianCalendar(TimeZone.getTimeZone(timeZone)).apply {
-            set(year, month - 1, dayOfMonth, 0, 0)
-        }
+    private fun createCalendar(
+        timeZone: String, year: Int, month: Int, dayOfMonth: Int
+    ) = GregorianCalendar(TimeZone.getTimeZone(timeZone)).also {
+        it.set(year, month - 1, dayOfMonth, 0, 0)
+    }
 }

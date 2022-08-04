@@ -1,14 +1,10 @@
 package io.github.persiancalendar.praytimes
 
-import java.util.*
 import kotlin.math.*
 
 class PrayTimes(
-    method: CalculationMethod,
-    calendar: GregorianCalendar,
-    coordinates: Coordinates,
-    asrMethod: AsrMethod = AsrMethod.Standard,
-    highLatitudesMethod: HighLatitudesMethod = HighLatitudesMethod.NightMiddle
+    method: CalculationMethod, year: Int, month: Int, dayOfMonth: Int, offset: Double,
+    coordinates: Coordinates, asrMethod: AsrMethod, highLatitudesMethod: HighLatitudesMethod
 ) {
     // A real number [0-24) of a day, up to client to turn it to hours and minutes,
     // and either show seconds or round it
@@ -37,11 +33,7 @@ class PrayTimes(
     }
 
     init {
-        val year = calendar[GregorianCalendar.YEAR]
-        val month = calendar[GregorianCalendar.MONTH] + 1
-        val day = calendar[GregorianCalendar.DAY_OF_MONTH]
-        val jdate = julian(year, month, day) - coordinates.longitude / (15.0 * 24.0)
-
+        val jdate = julian(year, month, dayOfMonth) - coordinates.longitude / (15.0 * 24.0)
         // compute prayer times at given julian date
         var imsak = sunAngleTime(jdate, DEFAULT_TIME_IMSAK, DEFAULT_IMSAK, true, coordinates)
         var fajr = sunAngleTime(jdate, method.fajr, DEFAULT_FAJR, true, coordinates)
@@ -54,7 +46,6 @@ class PrayTimes(
         var isha = sunAngleTime(jdate, method.isha, DEFAULT_ISHA, coordinates)
 
         // Adjust times
-        val offset = calendar.timeZone.getOffset(calendar.time.time) / (60 * 60 * 1000.0)
         val addToAll = offset - coordinates.longitude / 15.0
         imsak += addToAll
         fajr += addToAll
@@ -179,8 +170,7 @@ class PrayTimes(
 
     // adjust a time for higher latitudes
     private fun adjustHLTime(
-        highLatMethod: HighLatitudesMethod,
-        time: Double, bbase: Double, angle: Double,
+        highLatMethod: HighLatitudesMethod, time: Double, bbase: Double, angle: Double,
         night: Double, ccw: Boolean = false
     ): Double {
         var time = time

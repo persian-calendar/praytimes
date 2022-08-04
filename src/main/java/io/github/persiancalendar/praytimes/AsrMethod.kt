@@ -1,6 +1,6 @@
 package io.github.persiancalendar.praytimes
 
-// Asr Juristic Methods
+/** Asr Juristic Methods */
 enum class AsrMethod(/* asr shadow factor */internal val asrFactor: Double) {
     /** Shafi`i, Maliki, Ja`fari, Hanbali */
     Standard(1.0),
