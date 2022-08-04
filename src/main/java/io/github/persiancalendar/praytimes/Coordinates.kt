@@ -1,7 +1,3 @@
 package io.github.persiancalendar.praytimes
 
-data class Coordinates(
-    @JvmField val latitude: Double,
-    @JvmField val longitude: Double,
-    @JvmField val elevation: Double
-)
+data class Coordinates(val latitude: Double, val longitude: Double, val elevation: Double)

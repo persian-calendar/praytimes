@@ -1,39 +1,37 @@
 package io.github.persiancalendar.praytimes
 
-enum class CalculationMethod @JvmOverloads constructor(
-    @JvmField
-    val fajr: MinuteOrAngleDouble,
-    @JvmField
-    val isha: MinuteOrAngleDouble,
-    @JvmField
-    val maghrib: MinuteOrAngleDouble = min(0),
-    @JvmField
-    val midnight: MidnightType = MidnightType.Standard
+enum class CalculationMethod(
+    internal val fajr: MinuteOrAngleDouble,
+    internal val isha: MinuteOrAngleDouble,
+    internal val maghrib: MinuteOrAngleDouble = 0.min,
+    internal val midnight: MidnightType = MidnightType.Standard
 ) {
-    // Muslim World League
-    MWL(deg(18), deg(17)),  // Islamic Society of North America (ISNA)
-    ISNA(deg(15), deg(15)),  // Egyptian General Authority of Survey
-    Egypt(deg(19.5), deg(17.5)),  // Umm Al-Qura University, Makkah
-    Makkah(deg(18.5), min(90)),  // University of Islamic Sciences, Karachi
-    Karachi(deg(18), deg(18)),  // Institute of Geophysics, University of Tehran
-    Tehran(
-        deg(17.7),
-        deg(14),
-        deg(4.5),
-        MidnightType.Jafari
-    ),  // Shia Ithna-Ashari, Leva Institute, Qum
-    Jafari(deg(16), deg(14), deg(4), MidnightType.Jafari);
+    /** Muslim World League */
+    MWL(18.deg, 17.deg),
 
-    val isJafari: Boolean
+    /** Islamic Society of North America (ISNA) */
+    ISNA(15.deg, 15.deg),
 
-    init {
-        isJafari = midnight == MidnightType.Jafari
-    }
+    /** Egyptian General Authority of Survey */
+    Egypt(19.5.deg, 17.5.deg),
+
+    /** Umm Al-Qura University, Makkah */
+    Makkah(18.5.deg, 90.min),
+
+    /** University of Islamic Sciences, Karachi */
+    Karachi(18.deg, 18.deg),
+
+    /** Institute of Geophysics, University of Tehran */
+    Tehran(17.7.deg, 14.deg, 4.5.deg, MidnightType.Jafari),
+
+    /** Shia Ithna-Ashari, Leva Institute, Qum */
+    Jafari(16.deg, 14.deg, 4.deg, MidnightType.Jafari);
+
+    val isJafari = midnight == MidnightType.Jafari
 
     // Midnight Mode
-    enum class MidnightType {
-        Standard,  // Mid Sunset to Sunrise
-        Jafari // Mid Sunset to Fajr
+    internal enum class MidnightType {
+        Standard /* Mid Sunset to Sunrise */,
+        Jafari /* Mid Sunset to Fajr */
     }
-
 }
