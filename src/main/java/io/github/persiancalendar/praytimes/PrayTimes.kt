@@ -12,7 +12,7 @@ class PrayTimes(
     month: Int,
     /** Gregorian calendar day of month, 1-31 */
     dayOfMonth: Int,
-    /** Time zone offset in hourss, for GMT-1:00 it is -1, for GMT+3:30 it is 3.5 */
+    /** Time zone offset in hours, for GMT-1:00 it is -1, for GMT+3:30 it is 3.5 */
     offset: Double,
     /** Coordinate on earth */
     coordinates: Coordinates,
