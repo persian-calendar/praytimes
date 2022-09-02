@@ -3,8 +3,22 @@ package io.github.persiancalendar.praytimes
 import kotlin.math.*
 
 class PrayTimes(
-    method: CalculationMethod, year: Int, month: Int, dayOfMonth: Int, offset: Double,
-    coordinates: Coordinates, asrMethod: AsrMethod, highLatitudesMethod: HighLatitudesMethod
+    /** Variant of pray times calculation */
+    method: CalculationMethod,
+    /** Gregorian calendar year, e.g. 2020 */
+    year: Int,
+    /** Gregorian calendar month of year, 1-12 (NOT zero-indexed) */
+    month: Int,
+    /** Gregorian calendar day of month, 1-31 */
+    dayOfMonth: Int,
+    /** Time zone offset in milliseconds, for GMT-1:00 it is -1, for GMT+3:30 it is 3.5 */
+    offset: Double,
+    /** Coordinate on earth */
+    coordinates: Coordinates,
+    /** Asr calculation method, can be either AsrMethod.Standard or AsrMethod.Hanafi */
+    asrMethod: AsrMethod,
+    /** Correcting used for high latitudes places. Default is HighLatitudesMethod.NightMiddle */
+    highLatitudesMethod: HighLatitudesMethod
 ) {
     // A real number [0-24) of a day, up to client to turn it to hours and minutes,
     // and either show seconds or round it
