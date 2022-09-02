@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "io.github.persiancalendar"
-version = "2.1.2"
+version = "3.0.0"
 
 repositories {
     mavenCentral()
