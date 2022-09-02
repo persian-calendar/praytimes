@@ -48,7 +48,7 @@ class PrayTimes(
     }
 
     init {
-        val jdate = julian(year, month, dayOfMonth) - coordinates.longitude / (15.0 * 24.0)
+        val jdate = julian(year, month, dayOfMonth) - coordinates.longitude / (15 * 24)
         // compute prayer times at given julian date
         var imsak = sunAngleTime(jdate, DEFAULT_TIME_IMSAK, DEFAULT_IMSAK, true, coordinates)
         var fajr = sunAngleTime(jdate, method.fajr, DEFAULT_FAJR, true, coordinates)
@@ -61,7 +61,7 @@ class PrayTimes(
         var isha = sunAngleTime(jdate, method.isha, DEFAULT_ISHA, coordinates)
 
         // Adjust times
-        val addToAll = offset - coordinates.longitude / 15.0
+        val addToAll = offset - coordinates.longitude / 15
         imsak += addToAll
         fajr += addToAll
         sunrise += addToAll
@@ -84,10 +84,10 @@ class PrayTimes(
                 highLatitudesMethod, maghrib, sunset, method.maghrib.value, nightTime
             )
         }
-        if (DEFAULT_TIME_IMSAK.isMinutes) imsak = fajr - DEFAULT_TIME_IMSAK.value / 60.0
-        if (method.maghrib.isMinutes) maghrib = sunset + method.maghrib.value / 60.0
-        if (method.isha.isMinutes) isha = maghrib + method.isha.value / 60.0
-        dhuhr += DEFAULT_TIME_DHUHR.value / 60.0
+        if (DEFAULT_TIME_IMSAK.isMinutes) imsak = fajr - DEFAULT_TIME_IMSAK.value / 60
+        if (method.maghrib.isMinutes) maghrib = sunset + method.maghrib.value / 60
+        if (method.isha.isMinutes) isha = maghrib + method.isha.value / 60
+        dhuhr += DEFAULT_TIME_DHUHR.value / 60
 
         // add midnight time
         val midnight = if (method.midnight === CalculationMethod.MidnightType.Jafari)
@@ -122,7 +122,7 @@ class PrayTimes(
             (-sin(angle.value.toRadians) - sin(decl)
                     * sin(coordinates.latitude.toRadians))
                     / (cos(decl) * cos(coordinates.latitude.toRadians))
-        ) / 15.0
+        ) / 15
         return (noon + if (ccw) -t else t).toDegrees
     }
 
@@ -144,17 +144,17 @@ class PrayTimes(
     // compute declination angle of sun and equation of time
     // Ref: http://aa.usno.navy.mil/faq/docs/SunApprox.php
     private fun sunPosition(jd: Double): DeclEqt {
-        val D = jd - 2451545.0
+        val D = jd - 2451545
         val g = (357.529 + .98560028 * D) % 360
         val q = (280.459 + .98564736 * D) % 360
-        val L = (q + 1.915 * sin(g.toRadians) + .020 * sin((2.0 * g).toRadians)) % 360
+        val L = (q + 1.915 * sin(g.toRadians) + .020 * sin((2 * g).toRadians)) % 360
 
         // weird!
         // double R = 1.00014 - 0.01671 * Math.cos(dtr(g)) - 0.00014 *
         // Math.cos(dtr(2d * g));
         val e = 23.439 - .00000036 * D
         val RA = atan2(cos(e.toRadians) * sin(L.toRadians), cos(L.toRadians)).toDegrees / 15
-        val eqt = q / 15.0 - fixHour(RA)
+        val eqt = q / 15 - fixHour(RA)
         val decl = asin(sin(e.toRadians) * sin(L.toRadians))
         return DeclEqt(decl, eqt)
     }
@@ -201,8 +201,8 @@ class PrayTimes(
         highLatMethod: HighLatitudesMethod, angle: Double, night: Double
     ): Double {
         var portion = .5
-        if (highLatMethod === HighLatitudesMethod.AngleBased) portion = 1.0 / 60.0 * angle
-        if (highLatMethod === HighLatitudesMethod.OneSeventh) portion = 1.0 / 7.0
+        if (highLatMethod === HighLatitudesMethod.AngleBased) portion = 1.0 / 60 * angle
+        if (highLatMethod === HighLatitudesMethod.OneSeventh) portion = 1.0 / 7
         return portion * night
     }
 
