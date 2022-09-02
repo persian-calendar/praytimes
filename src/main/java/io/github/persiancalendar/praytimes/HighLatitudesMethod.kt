@@ -1,11 +1,11 @@
 package io.github.persiancalendar.praytimes
 
-// Adjust Methods for Higher Latitudes
+/** Adjust Methods for Higher Latitudes, e.g. Scandinavian countries */
 enum class HighLatitudesMethod {
-    /** middle of night, the default */
+    /** Middle of night, the default */
     NightMiddle,
 
-    /** angle/60th of night */
+    /** Angle/60th of night */
     AngleBased,
 
     /** 1/7th of night */

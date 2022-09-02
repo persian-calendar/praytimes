@@ -27,6 +27,7 @@ enum class CalculationMethod(
     /** Shia Ithna-Ashari, Leva Institute, Qum */
     Jafari(16.deg, 14.deg, 4.deg, MidnightType.Jafari);
 
+    /** Is the calculation method a Jafari one */
     val isJafari = midnight == MidnightType.Jafari
 
     // Midnight Mode
