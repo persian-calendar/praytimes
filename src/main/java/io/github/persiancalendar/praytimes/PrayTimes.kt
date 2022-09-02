@@ -52,11 +52,11 @@ class PrayTimes(
         // compute prayer times at given julian date
         var imsak = sunAngleTime(jdate, DEFAULT_TIME_IMSAK, DEFAULT_IMSAK, true, coordinates)
         var fajr = sunAngleTime(jdate, method.fajr, DEFAULT_FAJR, true, coordinates)
-        var sunrise =
-            sunAngleTime(jdate, riseSetAngle(coordinates), DEFAULT_SUNRISE, true, coordinates)
+        val riseAngle = riseSetAngle(coordinates) // Sun angle for sunset/sunrise
+        var sunrise = sunAngleTime(jdate, riseAngle, DEFAULT_SUNRISE, true, coordinates)
         var dhuhr = midDay(jdate, DEFAULT_DHUHR)
         var asr = asrTime(jdate, asrMethod.asrFactor, DEFAULT_ASR, coordinates)
-        var sunset = sunAngleTime(jdate, riseSetAngle(coordinates), DEFAULT_SUNSET, coordinates)
+        var sunset = sunAngleTime(jdate, riseAngle, DEFAULT_SUNSET, coordinates)
         var maghrib = sunAngleTime(jdate, method.maghrib, DEFAULT_MAGHRIB, coordinates)
         var isha = sunAngleTime(jdate, method.isha, DEFAULT_ISHA, coordinates)
 
@@ -90,8 +90,9 @@ class PrayTimes(
         dhuhr += DEFAULT_TIME_DHUHR.value / 60
 
         // add midnight time
-        val midnight = if (method.midnight === CalculationMethod.MidnightType.Jafari)
-            sunset + timeDiff(sunset, fajr) / 2 else sunset + timeDiff(sunset, sunrise) / 2
+        val midnight = sunset + timeDiff(
+            sunset, if (method.midnight === CalculationMethod.MidnightType.Jafari) fajr else sunrise
+        ) / 2
         this.imsak = fixHour(imsak)
         this.fajr = fixHour(fajr)
         this.sunrise = fixHour(sunrise)
@@ -168,7 +169,7 @@ class PrayTimes(
             year -= 1
             month += 12
         }
-        val A = floor(year.toDouble() / 100)
+        val A = floor(year / 100.0)
         val B = 2 - A + floor(A / 4)
         return floor(365.25 * (year + 4716)) + floor(30.6001 * (month + 1)) + day + B - 1524.5
     }
