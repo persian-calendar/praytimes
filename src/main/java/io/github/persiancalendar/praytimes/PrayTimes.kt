@@ -21,16 +21,31 @@ class PrayTimes(
     /** Correcting used for high latitudes places. Default can be HighLatitudesMethod.NightMiddle */
     highLatitudesMethod: HighLatitudesMethod
 ) {
-    // A real number [0-24) of a day, up to client to turn it to hours and minutes,
-    // and either show seconds or round it
+    /** Imsak, time fasting starts in Ramadan. A real number [0-24), portion of a day. */
     val imsak: Double
+
+    /** Fajr or dawn (Adhan). A real number [0-24), portion of a day. */
     val fajr: Double
+
+    /** Sunrise. A real number [0-24), portion of a day. */
     val sunrise: Double
+
+    /** Dhuhr or midday (Adhan). A real number [0-24), portion of a day. */
     val dhuhr: Double
+
+    /** Asr or afternoon (Adhan). A real number [0-24), portion of a day. */
     val asr: Double
+
+    /** Sunset. A real number [0-24), portion of a day. */
     val sunset: Double
+
+    /** Maghrib or sunset (Adhan). A real number [0-24), portion of a day. */
     val maghrib: Double
+
+    /** Isha or night (Adhan). A real number [0-24), portion of a day. */
     val isha: Double
+
+    /** Midnight. A real number [0-24), portion of a day. */
     val midnight: Double
 
     // default times
