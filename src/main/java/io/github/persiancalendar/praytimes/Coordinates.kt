@@ -5,6 +5,6 @@ data class Coordinates(
     val latitude: Double,
     /** Observer longitude, [0-180) */
     val longitude: Double,
-    /** Observer height/elevation/altitude, 0 is global seas level */
+    /** Observer height/elevation/altitude in meters, 0 is global seas level */
     val elevation: Double
 )
