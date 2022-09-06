@@ -129,9 +129,7 @@ class PrayTimes(
 
     private fun sunAngleTime(
         jdate: Double, angle: MinuteOrAngleDouble, time: Double, coordinates: Coordinates
-    ): Double {
-        return sunAngleTime(jdate, angle, time, false, coordinates)
-    }
+    ): Double = sunAngleTime(jdate, angle, time, false, coordinates)
 
     // compute asr time
     private fun asrTime(
@@ -198,13 +196,12 @@ class PrayTimes(
     }
 
     // the night portion used for adjusting times in higher latitudes
-    private fun nightPortion(
-        highLatMethod: HighLatitudesMethod, angle: Double, night: Double
-    ): Double {
-        var portion = .5
-        if (highLatMethod === HighLatitudesMethod.AngleBased) portion = 1.0 / 60 * angle
-        if (highLatMethod === HighLatitudesMethod.OneSeventh) portion = 1.0 / 7
-        return portion * night
+    private fun nightPortion(method: HighLatitudesMethod, angle: Double, night: Double): Double {
+        return when (method) {
+            HighLatitudesMethod.AngleBased -> 1.0 / 60 * angle
+            HighLatitudesMethod.OneSeventh -> 1.0 / 7
+            else -> .5
+        } * night
     }
 
     // compute the difference between two times
