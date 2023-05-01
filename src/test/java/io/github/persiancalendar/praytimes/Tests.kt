@@ -88,6 +88,7 @@ class Tests {
         assertEquals(Clock(16, 57).toMinutes(), prayTimes.asr.toRoundedClock().toMinutes())
         assertEquals(Clock(20, 5).toMinutes(), prayTimes.maghrib.toRoundedClock().toMinutes())
         assertEquals(Clock(21, 3).toMinutes(), prayTimes.isha.toRoundedClock().toMinutes())
+        assertEquals(Clock(0, 35).toMinutes(), prayTimes.midnight.toRoundedClock().toMinutes())
 
         prayTimes = prayTimes(
             CalculationMethod.Tehran,

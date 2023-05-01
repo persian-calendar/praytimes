@@ -1,6 +1,16 @@
 package io.github.persiancalendar.praytimes
 
-import kotlin.math.*
+import kotlin.math.PI
+import kotlin.math.abs
+import kotlin.math.acos
+import kotlin.math.asin
+import kotlin.math.atan
+import kotlin.math.atan2
+import kotlin.math.cos
+import kotlin.math.floor
+import kotlin.math.sin
+import kotlin.math.sqrt
+import kotlin.math.tan
 
 /** Canonical API of the library */
 class PrayTimes(
@@ -19,7 +29,9 @@ class PrayTimes(
     /** Asr calculation method, can be either AsrMethod.Standard or AsrMethod.Hanafi */
     asrMethod: AsrMethod,
     /** Correcting used for high latitudes places. Default can be HighLatitudesMethod.NightMiddle */
-    highLatitudesMethod: HighLatitudesMethod
+    highLatitudesMethod: HighLatitudesMethod,
+    /** Midnight calculation method. Pass null to choose based on  */
+    midnightMethod: MidnightMethod? = null,
 ) {
     /** Imsak, time fasting starts in Ramadan. A real number [0-24), portion of a day. */
     val imsak: Double
@@ -104,10 +116,13 @@ class PrayTimes(
         if (method.isha.isMinutes) isha = maghrib + method.isha.value / 60
         dhuhr += DEFAULT_TIME_DHUHR.value / 60
 
-        // add midnight time
-        val midnight = sunset + timeDiff(
-            sunset, if (method.midnight === CalculationMethod.MidnightType.Jafari) fajr else sunrise
-        ) / 2
+        val midnight = when (midnightMethod ?: method.midnight) {
+            MidnightMethod.MidSunsetToSunrise -> sunset + timeDiff(sunset, sunrise) / 2
+            MidnightMethod.MidSunsetToFajr -> sunset + timeDiff(sunset, fajr) / 2
+            MidnightMethod.MidMaghribToSunrise -> maghrib + timeDiff(maghrib, sunrise) / 2
+            MidnightMethod.MidMaghribToFajr -> maghrib + timeDiff(maghrib, fajr) / 2
+        }
+
         this.imsak = fixHour(imsak)
         this.fajr = fixHour(fajr)
         this.sunrise = fixHour(sunrise)

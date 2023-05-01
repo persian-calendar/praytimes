@@ -4,7 +4,7 @@ enum class CalculationMethod(
     internal val fajr: MinuteOrAngleDouble,
     internal val isha: MinuteOrAngleDouble,
     internal val maghrib: MinuteOrAngleDouble = 0.min,
-    internal val midnight: MidnightType = MidnightType.Standard
+    internal val midnight: MidnightMethod = MidnightMethod.MidSunsetToSunrise
 ) {
     /** Muslim World League */
     MWL(18.deg, 17.deg),
@@ -22,17 +22,12 @@ enum class CalculationMethod(
     Karachi(18.deg, 18.deg),
 
     /** Institute of Geophysics, University of Tehran */
-    Tehran(17.7.deg, 14.deg, 4.5.deg, MidnightType.Jafari),
+    Tehran(17.7.deg, 14.deg, 4.5.deg, MidnightMethod.MidSunsetToFajr),
 
     /** Shia Ithna-Ashari, Leva Institute, Qum */
-    Jafari(16.deg, 14.deg, 4.deg, MidnightType.Jafari);
+    Jafari(16.deg, 14.deg, 4.deg, MidnightMethod.MidSunsetToFajr);
 
     /** Is the calculation method a Jafari one */
-    val isJafari = midnight == MidnightType.Jafari
+    val isJafari = midnight == MidnightMethod.MidSunsetToFajr // Jafari's default is SunsetToFajr
 
-    // Midnight Mode
-    internal enum class MidnightType {
-        Standard /* Mid Sunset to Sunrise */,
-        Jafari /* Mid Sunset to Fajr */
-    }
 }
