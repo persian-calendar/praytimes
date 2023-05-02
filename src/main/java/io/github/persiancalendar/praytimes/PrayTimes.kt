@@ -116,7 +116,7 @@ class PrayTimes(
         if (method.isha.isMinutes) isha = maghrib + method.isha.value / 60
         dhuhr += DEFAULT_TIME_DHUHR.value / 60
 
-        val midnight = when (midnightMethod ?: method.midnight) {
+        val midnight = when (midnightMethod ?: method.defaultMidnight) {
             MidnightMethod.MidSunsetToSunrise -> sunset + timeDiff(sunset, sunrise) / 2
             MidnightMethod.MidSunsetToFajr -> sunset + timeDiff(sunset, fajr) / 2
             MidnightMethod.MidMaghribToSunrise -> maghrib + timeDiff(maghrib, sunrise) / 2
