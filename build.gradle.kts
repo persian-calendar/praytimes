@@ -26,8 +26,10 @@ tasks.test {
     useJUnitPlatform()
 }
 
+val javaVersion = JavaVersion.VERSION_17
+
 configure<JavaPluginExtension> {
-    sourceCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = javaVersion
 }
 
 val sourceJar by tasks.creating(Jar::class) {
@@ -57,5 +59,5 @@ publishing {
 
 val compileKotlin: KotlinCompile by tasks
 compileKotlin.kotlinOptions {
-    jvmTarget = "1.8"
+    jvmTarget = javaVersion.majorVersion
 }
