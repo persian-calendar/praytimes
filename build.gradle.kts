@@ -26,10 +26,11 @@ tasks.test {
     useJUnitPlatform()
 }
 
-val javaVersion = JavaVersion.VERSION_17
-
-configure<JavaPluginExtension> {
-    sourceCompatibility = javaVersion
+val javaVersion = JavaVersion.VERSION_21
+kotlin {
+    compilerOptions {
+        jvmTarget = JvmTarget.fromTarget(javaVersion.majorVersion)
+    }
 }
 
 val sourceJar by tasks.creating(Jar::class) {
@@ -45,9 +46,4 @@ publishing {
             artifact(sourceJar)
         }
     }
-}
-
-val compileKotlin: KotlinCompile by tasks
-compileKotlin.kotlinOptions {
-    jvmTarget = javaVersion.majorVersion
 }
