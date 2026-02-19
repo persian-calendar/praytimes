@@ -25,7 +25,16 @@ enum class CalculationMethod(
     Tehran(17.7.deg, 14.deg, 4.5.deg, MidnightMethod.MidSunsetToFajr),
 
     /** Shia Ithna-Ashari, Leva Institute, Qum */
-    Jafari(16.deg, 14.deg, 4.deg, MidnightMethod.MidSunsetToFajr);
+    Jafari(16.deg, 14.deg, 4.deg, MidnightMethod.MidSunsetToFajr),
+
+    /** France */
+    France(12.deg, 12.deg),
+
+    /** Russia */
+    Russia(16.deg, 15.deg),
+
+    /** Singapore */
+    Singapore(20.deg, 18.deg);
 
     /** Is the calculation method a Jafari one */
     val isJafari = defaultMidnight == MidnightMethod.MidSunsetToFajr

@@ -116,6 +116,26 @@ class Tests {
         assertEquals(Clock(19, 37).toMinutes(), prayTimes.maghrib.toRoundedClock().toMinutes())
         assertEquals(Clock(20, 19).toMinutes(), prayTimes.isha.toRoundedClock().toMinutes())
 
+        // Just a smoke test for these for now
+        prayTimes(
+            CalculationMethod.France,
+            createCalendar("GMT+8:00", 2019, 6, 9),
+            Coordinates(3.147778, 101.695278, .0),
+            AsrMethod.Standard
+        )
+        prayTimes(
+            CalculationMethod.Russia,
+            createCalendar("GMT+8:00", 2019, 6, 9),
+            Coordinates(3.147778, 101.695278, .0),
+            AsrMethod.Standard
+        )
+        prayTimes(
+            CalculationMethod.Singapore,
+            createCalendar("GMT+8:00", 2019, 6, 9),
+            Coordinates(3.147778, 101.695278, .0),
+            AsrMethod.Standard
+        )
+
         assertTrue(CalculationMethod.Tehran.isJafari)
         assertTrue(!CalculationMethod.Karachi.isJafari)
     }
