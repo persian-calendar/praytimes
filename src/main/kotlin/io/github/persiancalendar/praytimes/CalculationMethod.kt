@@ -7,34 +7,44 @@ enum class CalculationMethod(
     val defaultMidnight: MidnightMethod = MidnightMethod.MidSunsetToSunrise
 ) {
     /** Muslim World League */
-    MWL(18.deg, 17.deg),
+    MWL(fajr = 18.deg, isha = 17.deg),
 
     /** Islamic Society of North America (ISNA) */
-    ISNA(15.deg, 15.deg),
+    ISNA(fajr = 15.deg, isha = 15.deg),
 
     /** Egyptian General Authority of Survey */
-    Egypt(19.5.deg, 17.5.deg),
+    Egypt(fajr = 19.5.deg, isha = 17.5.deg),
 
     /** Umm Al-Qura University, Makkah */
-    Makkah(18.5.deg, 90.min),
+    Makkah(fajr = 18.5.deg, isha = 90.min),
 
     /** University of Islamic Sciences, Karachi */
-    Karachi(18.deg, 18.deg),
+    Karachi(fajr = 18.deg, isha = 18.deg),
 
     /** Institute of Geophysics, University of Tehran */
-    Tehran(17.7.deg, 14.deg, 4.5.deg, MidnightMethod.MidSunsetToFajr),
+    Tehran(
+        fajr = 17.7.deg,
+        isha = 14.deg,
+        maghrib = 4.5.deg,
+        defaultMidnight = MidnightMethod.MidSunsetToFajr
+    ),
 
     /** Shia Ithna-Ashari, Leva Institute, Qum */
-    Jafari(16.deg, 14.deg, 4.deg, MidnightMethod.MidSunsetToFajr),
+    Jafari(
+        fajr = 16.deg,
+        isha = 14.deg,
+        maghrib = 4.deg,
+        defaultMidnight = MidnightMethod.MidSunsetToFajr
+    ),
 
     /** France */
-    France(12.deg, 12.deg),
+    France(fajr = 12.deg, isha = 12.deg),
 
     /** Russia */
-    Russia(16.deg, 15.deg),
+    Russia(fajr = 16.deg, isha = 15.deg),
 
     /** Singapore */
-    Singapore(20.deg, 18.deg);
+    Singapore(fajr = 20.deg, isha = 18.deg);
 
     /** Is the calculation method a Jafari one */
     val isJafari = defaultMidnight == MidnightMethod.MidSunsetToFajr
