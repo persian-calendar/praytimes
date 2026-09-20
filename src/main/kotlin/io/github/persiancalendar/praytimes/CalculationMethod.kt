@@ -37,13 +37,13 @@ enum class CalculationMethod(
         defaultMidnight = MidnightMethod.MidSunsetToFajr
     ),
 
-    /** France */
+    /** Muslims of France / UOIF */
     France(fajr = 12.deg, isha = 12.deg),
 
-    /** Russia */
+    /** Spiritual Administration of Muslims of Russia */
     Russia(fajr = 16.deg, isha = 15.deg),
 
-    /** Singapore */
+    /** Islamic Religious Council of Singapore */
     Singapore(fajr = 20.deg, isha = 18.deg);
 
     /** Is the calculation method a Jafari one */
