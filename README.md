@@ -1,7 +1,7 @@
 # Pray Times
 [![](https://jitpack.io/v/persian-calendar/praytimes.svg)](https://jitpack.io/#persian-calendar/praytimes)
 
-PrayTimes, a Java port of [PrayTimes.js](http://praytimes.org/) (LGPLv3)
+PrayTimes, a Kotlin port of [PrayTimes.js](http://praytimes.org/) (LGPLv3)
 ```
   Copyright (C) 2007-2011 PrayTimes.org
 
