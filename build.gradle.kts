@@ -1,47 +1,42 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    kotlin("jvm") version "2.4.20"
+    kotlin("multiplatform") version "2.4.20"
     `maven-publish`
 }
-
-group = "io.github.persiancalendar"
-version = "3.1.3"
 
 repositories {
     mavenCentral()
 }
 
-dependencies {
-    val junit5Version = "6.1.3"
-    testImplementation("org.junit.jupiter:junit-jupiter-api:$junit5Version")
-    testImplementation("org.junit.jupiter:junit-jupiter-params:$junit5Version")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junit5Version")
-    testImplementation(kotlin("stdlib-jdk8"))
-    testImplementation(kotlin("test"))
-    implementation(kotlin("stdlib-jdk8"))
-}
-
-tasks.test {
-    useJUnitPlatform()
-}
-
 kotlin {
     jvmToolchain(21)
-    compilerOptions { jvmTarget = JvmTarget.JVM_21 }
-}
 
-val sourceJar by tasks.registering(Jar::class) {
-    dependsOn(tasks["classes"])
-    archiveClassifier.set("sources")
-    from(sourceSets["main"].allSource)
-}
-
-publishing {
-    publications {
-        register("mavenJava", MavenPublication::class) {
-            from(components["kotlin"])
-            artifact(sourceJar)
+    jvm {
+        compilerOptions {
+            jvmTarget = JvmTarget.JVM_21
         }
+    }
+
+    js {
+        nodejs()
+        browser()
+    }
+
+    linuxX64()
+    linuxArm64()
+    macosArm64()
+    mingwX64()
+
+    sourceSets {
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+        }
+    }
+}
+
+tasks.withType<org.gradle.api.tasks.testing.AbstractTestTask>().configureEach {
+    testLogging {
+        showStandardStreams = true
     }
 }
