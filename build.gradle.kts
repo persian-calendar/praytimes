@@ -5,6 +5,9 @@ plugins {
     `maven-publish`
 }
 
+group = (findProperty("group") as? String) ?: "io.github.persiancalendar"
+version = (findProperty("version") as? String) ?: "4.0.0"
+
 repositories {
     mavenCentral()
 }
