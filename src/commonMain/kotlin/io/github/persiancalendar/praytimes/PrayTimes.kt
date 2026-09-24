@@ -145,9 +145,10 @@ class PrayTimes(
         jdate: Double, angle: MinuteOrAngleDouble, time: Double, ccw: Boolean,
         coordinates: Coordinates
     ): Double {
-        // TODO: the below assert should be considered
-        // if (angle.isMinute()) throw new IllegalArgumentException("angle argument must be degree, not minute!");
         val decl = sunPosition(jdate + time).declination
+        // `noon` is in hours. Converting it to radians (× π/180) and the final
+        // result back to degrees (× 180/π) cancels out, while `t` (radians/15)
+        // becomes degrees/15 = hours, matching the JS v2 `sunAngleTime`.
         val noon = midDay(jdate, time).toRadians
         val t = acos(
             (-sin(angle.value.toRadians) - sin(decl)
@@ -166,6 +167,8 @@ class PrayTimes(
         jdate: Double, factor: Double, time: Double, coordinates: Coordinates
     ): Double {
         val decl = sunPosition(jdate + time).declination
+        // Angle is computed in radians, converted to degrees for the
+        // MinuteOrAngleDouble, then converted back inside sunAngleTime.
         val angle = -atan(1 / (factor + tan(abs(coordinates.latitude.toRadians - decl))))
         return sunAngleTime(jdate, angle.toDegrees.deg, time, coordinates)
     }
@@ -174,9 +177,9 @@ class PrayTimes(
     // Ref: http://aa.usno.navy.mil/faq/docs/SunApprox.php
     private fun sunPosition(jd: Double): DeclEqt {
         val D = jd - 2451545
-        val g = (357.529 + .98560028 * D) % 360
-        val q = (280.459 + .98564736 * D) % 360
-        val L = (q + 1.915 * sin(g.toRadians) + .020 * sin((2 * g).toRadians)) % 360
+        val g = fixAngle(357.529 + .98560028 * D)
+        val q = fixAngle(280.459 + .98564736 * D)
+        val L = fixAngle(q + 1.915 * sin(g.toRadians) + .020 * sin((2 * g).toRadians))
 
         // weird!
         // double R = 1.00014 - 0.01671 * Math.cos(dtr(g)) - 0.00014 *
@@ -237,9 +240,13 @@ class PrayTimes(
     // compute the difference between two times
     private fun timeDiff(time1: Double, time2: Double) = fixHour(time2 - time1)
 
-    private fun fixHour(a: Double): Double {
-        val result = a % 24
-        return if (result < 0) 24 + result else result
+    private fun fixHour(a: Double): Double = fix(a, 24.0)
+
+    private fun fixAngle(a: Double): Double = fix(a, 360.0)
+
+    private fun fix(a: Double, b: Double): Double {
+        val result = a % b
+        return if (result < 0) result + b else result
     }
 
     private val Double.toRadians get() = this * PI / 180
